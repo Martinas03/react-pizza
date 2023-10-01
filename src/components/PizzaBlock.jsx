@@ -1,36 +1,46 @@
 import React, {useState} from "react";
-import pizzas from './../assets/data/pizzas.json'
 
-function PizzaBlock({title, price}) {
-    const [count, setCount] = useState(0)
-    const [sizeIndex, setSizeIndex] = useState(0)
+function PizzaBlock({title,image,  price, type, size}) {
+    const [itemIndex, setItemIndex] = useState(0)
+    const [typeIndex, setTypeIndex] = useState(0)
     const onClickActive = (index) => {
-        setSizeIndex(index)
+        setItemIndex(index)
     }
-    console.log(pizzas[0])
+
+    const onClickTypeActive = (index) => {
+        setTypeIndex(index)
+    }
+
+    const typeNames = ['тонкое', 'традиционное']
+
+
     return <div className="pizza-block">
-        {pizzas.map((obj, index) => {
-            return <>
+             <>
                 <img
                     className="pizza-block__image"
-                    src={obj.imageUrl}
+                    src={image}
                     alt="Pizza"
                 />
-                <h4 className="pizza-block__title">{obj.title}</h4>
+                <h4 className="pizza-block__title">{title}</h4>
                 <div className="pizza-block__selector">
                     <ul>
-                        <li className="active">тонкое</li>
-                        <li>традиционное</li>
+                        {type.map((t)=> {
+                           return <li key={t} onClick={()=>{onClickTypeActive(t)}}
+                                      className={typeIndex === t ?"active" : ''}>{
+                               typeNames[t]
+                           }</li>
+                        })}
                     </ul>
                     <ul>
-                        {obj.sizes.map((size, i) => {
-                            return <li onClick={()=>{onClickActive(i)}} className={sizeIndex === i ?"active" : ''}>{size}
+                        {size.map((s, i) => {
+                            return <li key={i} onClick={()=>{onClickActive(i)}}
+                                       className={itemIndex === i ?"active" : ''}>{s}
                             </li>
                         })}
                     </ul>
                 </div>
                 <div className="pizza-block__bottom">
-                    <div className="pizza-block__price">от {obj.price} ₽</div>
+                    <div className="pizza-block__price">от {price} ₽</div>
                     <div className="button button--outline button--add">
                         <svg
                             width="12"
@@ -44,12 +54,11 @@ function PizzaBlock({title, price}) {
                                 fill="white"
                             />
                         </svg>
-                        <span onClick={() => setCount(count + 1)}>Добавить</span>
-                        <i>{count}</i>
+                        <span>Добавить</span>
+                        <i>0</i>
                     </div>
                 </div>
             </>
-        })}
     </div>;
 }
 
