@@ -24,9 +24,9 @@ function App() {
                         <h2 className="content__title">Все пиццы</h2>
                         <div className="content__items">
                             <PizzaBlock title={'Mexican'} price={'350'}/>
-                            <PizzaBlock  title={'Margarita'} price={'500'}/>
-                            <PizzaBlock  title={'Cheeseburger-pizza'} price={'600'}/>
-                            <PizzaBlock  title={'Hawaii'} price={'700'}/>
+                            {/*<PizzaBlock  title={'Margarita'} price={'500'}/>*/}
+                            {/*<PizzaBlock  title={'Cheeseburger-pizza'} price={'600'}/>*/}
+                            {/*<PizzaBlock  title={'Hawaii'} price={'700'}/>*/}
 
                         </div>
                     </div>
