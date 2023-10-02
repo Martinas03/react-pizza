@@ -6,7 +6,7 @@ function Header() {
         <div className="container">
             <div className="header__logo">
                 <img width="38"
-                    src={pizzaLogo}
+                     src={pizzaLogo}
                      alt="Pizza logo"/>
                 <div>
                     <h1>React Pizza</h1>
@@ -15,7 +15,7 @@ function Header() {
             </div>
             <div className="header__cart">
                 <a
-                    // href="/cart.html"
+                    href=""
                     className="button button--cart">
                     <span>520 ₽</span>
                     <div className="button__delimiter"></div>

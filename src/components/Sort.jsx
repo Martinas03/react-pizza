@@ -2,13 +2,11 @@ import React, {useState} from "react";
 
 function Sort() {
 
-    // const [sortName, setSortName] = useState('Популярности')
     const [isOpenPopup, setIsOpenPopup] = useState(false)
     const [selected, setSelected] = useState(0)
 
     const onClickActive = (index) => {
         setSelected(index)
-        // setSortName(name)
         setIsOpenPopup(false)
     }
 

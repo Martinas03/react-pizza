@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import React from "react";
+import React, {useEffect, useState} from "react";
 import './App.css';
 import scss from './scss/app.scss'
 import Header from "./components/Header";
@@ -10,6 +10,19 @@ import pizzas from './assets/data/pizzas.json'
 
 
 function App() {
+    const [items, setItems] = useState([])
+    useEffect(()=> {
+        fetch('https://651a96bd340309952f0d8f19.mockapi.io/items')
+            .then(res=> {
+                return res.json()
+            })
+            .then((arr )=> {
+                console.log(arr)
+                setItems(arr)
+            })
+    }, [])
+
+
     return (
         <div className="App">
             <div className="wrapper">
@@ -22,7 +35,7 @@ function App() {
                         </div>
                         <h2 className="content__title">Все пиццы</h2>
                         <div className="content__items">
-                            {pizzas.map(obj => {
+                            {items.map(obj => {
 
                                 // <div key={obj.id}>
                                 return <PizzaBlock
