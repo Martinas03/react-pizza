@@ -23,13 +23,17 @@ function App() {
                         <h2 className="content__title">Все пиццы</h2>
                         <div className="content__items">
                             {pizzas.map(obj => {
-                                return <div key={obj.id}><PizzaBlock
+
+                                // <div key={obj.id}>
+                                return <PizzaBlock
+                                    key={obj.id}
                                     title={obj.title}
                                     image={obj.imageUrl}
                                     price={obj.price}
                                     type={obj.types}
                                     size={obj.sizes}
-                                /></div>
+                                />
+                                // </div>
                             })}
 
 
