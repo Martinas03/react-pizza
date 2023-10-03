@@ -19,7 +19,6 @@ function App() {
                             <Route path={'/cort'} element={<Cart/> }/>
                             <Route path={'*'} element={<NotFound/> }/>
                         </Routes>
-
                 </div>
             </div>
 
