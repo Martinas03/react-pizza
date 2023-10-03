@@ -14,8 +14,9 @@ function PizzaBlock({title,image,  price, type, size}) {
     const typeNames = ['тонкое', 'традиционное']
 
 
-    return <div className="pizza-block">
-             <>
+    return <div className="pizza-block-wrapper">
+        <div className="pizza-block">
+            <>
                 <img
                     className="pizza-block__image"
                     src={image}
@@ -25,10 +26,10 @@ function PizzaBlock({title,image,  price, type, size}) {
                 <div className="pizza-block__selector">
                     <ul>
                         {type.map((t)=> {
-                           return <li key={t} onClick={()=>{onClickTypeActive(t)}}
-                                      className={typeIndex === t ?"active" : ''}>{
-                               typeNames[t]
-                           }</li>
+                            return <li key={t} onClick={()=>{onClickTypeActive(t)}}
+                                       className={typeIndex === t ?"active" : ''}>{
+                                typeNames[t]
+                            }</li>
                         })}
                     </ul>
                     <ul>
@@ -59,7 +60,8 @@ function PizzaBlock({title,image,  price, type, size}) {
                     </div>
                 </div>
             </>
-    </div>;
+        </div>;
+    </div>
 }
 
 export default PizzaBlock
