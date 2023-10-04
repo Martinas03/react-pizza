@@ -5,12 +5,13 @@ import PizzaBlockSkeleton from "../Skeletons/PizzaBlockSkeleton";
 import PizzaBlock from "../PizzaBlock";
 import './../../App.css';
 
-const Home = () => {
+const Home = ({searchValue, setSearchValue}) => {
     const [items, setItems] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [categoryIndex, setCategoryIndex] = useState(0)
     const [isOpenPopup, setIsOpenPopup] = useState(false)
     const [selected, setSelected] = useState({property: 'popularity',  title:'популярности'})
+    // const [searchValue, setSearchValue] = useState('')
 
     const categories = [
         {id: 1, title: 'Все'},
@@ -21,11 +22,12 @@ const Home = () => {
         {id: 6, title: 'Закрытые'}
     ]
 
-    const category = categoryIndex > 0 ? categoryIndex.toString(): ''
-    const sortBy = selected.property.replace('-', '')
-    const order = selected.property.includes('-') ? 'desc' : 'asc'
+
 
     useEffect(() => {
+        const category = categoryIndex > 0 ? categoryIndex.toString(): ''
+        const sortBy = selected.property.replace('-', '')
+        const order = selected.property.includes('-') ? 'desc' : 'asc'
         setIsLoading(true)
         fetch(`https://651a96bd340309952f0d8f19.mockapi.io/items?&category=${category}&sortBy=${sortBy}&order=${order}` )
             .then(res => {
@@ -42,6 +44,11 @@ const Home = () => {
     const onClickCategory = (index) => {
         setCategoryIndex(index)
     }
+
+    // const onChangeSearchValue = (e) => {
+    //     setSearchValue(e.currentTarget.value)
+    //     console.log(e)
+    // }
 
 
     return (
@@ -63,7 +70,8 @@ const Home = () => {
             <div className="content__items">
                 {isLoading ? [...new Array(6)].map((item, i) => {
                     return <PizzaBlockSkeleton key={i}/>
-                }) : items.map(obj => {
+                }) : items.filter(pizza => pizza.title.toLowerCase().includes(searchValue.toLowerCase()))
+                    .map(obj => {
                     return <PizzaBlock
                         key={obj.id}
                         title={obj.title}
@@ -74,7 +82,6 @@ const Home = () => {
                     />
 
                 })}
-
             </div>
         </div>
     );

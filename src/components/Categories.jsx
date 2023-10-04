@@ -1,5 +1,4 @@
-import React, {useState} from "react";
-// import categories from "./pages/Home";
+import React from "react";
 
 function Categories({categories, categoryIndex, onClickCategory}) {
 
