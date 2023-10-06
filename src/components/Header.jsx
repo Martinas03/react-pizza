@@ -1,9 +1,12 @@
-import React from "react";
+import React, {useContext} from "react";
 import pizzaLogo from './../assets/images/pizza.svg'
 import {Link} from "react-router-dom";
 import Search from "./search/Search";
+import {AppContext} from "../App";
 
-function Header({searchValue, setSearchValue}) {
+function Header() {
+
+    const {searchValue, setSearchValue} = useContext(AppContext)
     return <div className="header">
         <div className="container">
             <Link to={'/'} className="header__logo">

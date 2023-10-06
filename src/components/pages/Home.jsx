@@ -1,12 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Categories from "../Categories";
 import Sort from "../Sort";
 import PizzaBlockSkeleton from "../Skeletons/PizzaBlockSkeleton";
 import PizzaBlock from "../PizzaBlock";
 import './../../App.css';
 import Pagination from "../pagination/Pagination";
+import {AppContext} from "../../App";
 
-const Home = ({searchValue, setSearchValue}) => {
+const Home = () => {
     const [items, setItems] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [categoryIndex, setCategoryIndex] = useState(0)
@@ -14,7 +15,7 @@ const Home = ({searchValue, setSearchValue}) => {
     const [selected, setSelected] = useState({property: 'popularity',  title:'популярности'})
     const [currentPage, setCurrentPage] = useState(1)
 
-
+    const {searchValue} = useContext(AppContext)
     // const [searchValue, setSearchValue] = useState('')
 
     const categories = [
@@ -52,10 +53,6 @@ const Home = ({searchValue, setSearchValue}) => {
         setCategoryIndex(index)
     }
 
-    // const onChangeSearchValue = (e) => {
-    //     setSearchValue(e.currentTarget.value)
-    //     console.log(e)
-    // }
    const onChangePage = (page) => {
         setCurrentPage(page)
    }
