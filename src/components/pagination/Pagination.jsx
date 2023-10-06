@@ -2,21 +2,14 @@ import React, {useState} from 'react';
 import s from './Pagination.module.scss'
 
 const Pagination = ({items, onChangePage, currentPage}) => {
-    const [index, setIndex] = useState(1)
-    const [page, setPage] = useState(1)
+
     const pizzasTotalCount = 10
     const pageCount = 4
 
     const totalPage = Math.ceil(pizzasTotalCount / pageCount)
 
-    let diapason = 5
-
     const pagesArray = Array(totalPage).fill(1).map((i, index) => index + 1)
 
-    const onChangePageNumber = (page) => {
-        setPage(page)
-        console.log(pizzasTotalCount)
-    }
 
 
     return (
