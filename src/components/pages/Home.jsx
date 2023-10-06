@@ -29,14 +29,14 @@ const Home = ({searchValue, setSearchValue}) => {
 
 
     useEffect(() => {
-        const category = categoryIndex > 0 ? categoryIndex.toString(): ''
+        const category = categoryIndex > 0 ? `category=${categoryIndex.toString()}`: ''
         const search = searchValue ? `search=${searchValue}`: ''
-        const sortBy = selected.property.replace('-', '')
-        const order = selected.property.includes('-') ? 'desc' : 'asc'
+        const sortBy = `sortBy=${selected.property.replace('-', '')}`
+        const order = `order=${selected.property.includes('-') ? 'desc' : 'asc'}`
         const limit = `limit=4`
         const page = `page=${currentPage}`
         setIsLoading(true)
-        fetch(`https://651a96bd340309952f0d8f19.mockapi.io/items?${page}&${limit}&category=${category}&sortBy=${sortBy}&order=${order}&${search}` )
+        fetch(`https://651a96bd340309952f0d8f19.mockapi.io/items?${search}&${page}&${limit}&${category}&${sortBy}&${order}` )
             .then(res => {
                 return res.json()
             })
@@ -77,7 +77,7 @@ const Home = ({searchValue, setSearchValue}) => {
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
-                {isLoading ? [...new Array(6)].map((item, i) => {
+                {isLoading ? [...new Array(3)].map((item, i) => {
                     return <PizzaBlockSkeleton key={i}/>
                 }) : items
                     // .filter(pizza => pizza.title.toLowerCase().includes(searchValue.toLowerCase()))

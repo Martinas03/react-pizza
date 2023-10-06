@@ -12,6 +12,9 @@
   border: 1px solid transparent;
   margin: 3px;
   color: white;
+  &:active {
+    background-color: darken($orange, 8%);
+  }
 }
 
 .buttonOnFocus {
@@ -40,4 +43,5 @@
   background-color: #fff;
   border: none;
   margin: 3px;
+  cursor: pointer;
 }
