@@ -1,0 +1,51 @@
+import React, {useState} from 'react';
+import s from './Pagination.module.scss'
+
+const Pagination = ({items, onChangePage, currentPage}) => {
+    const [index, setIndex] = useState(1)
+    const [page, setPage] = useState(1)
+    const pizzasTotalCount = 10
+    const pageCount = 4
+
+    const totalPage = Math.ceil(pizzasTotalCount / pageCount)
+
+    let diapason = 5
+
+    const pagesArray = Array(totalPage).fill(1).map((i, index) => index + 1)
+
+    const onChangePageNumber = (page) => {
+        setPage(page)
+        console.log(pizzasTotalCount)
+    }
+
+
+    return (
+        <div>
+            <div>
+                <button className={s.arrows} onClick={()=>onChangePage(currentPage-1)} disabled={currentPage === 1}>{'<<'}</button>
+                {/*{index > 1 && <>*/}
+                {/*    <button className={page === 1 ? s.navButton_focus : s.navButton} onClick={firstPage}>1</button>*/}
+                {/*    <span>...</span>*/}
+                {/*</>}*/}
+                {pagesArray.map((pg, i) => {
+                    // let iPlusOne = i + 1
+                    // if (iPlusOne >= index && iPlusOne < (index + diapason)) {
+                    return <button key={pg}
+                                   className={currentPage === pg ? s.button : s.buttonOnFocus}
+                                   onClick={() => onChangePage(pg)
+                                   }>{pg}</button>
+                    // } else {
+                    //     return <></>
+                    // }
+                })}
+                {/*{index + diapason < totalPage && <>*/}
+                {/*    <span>...</span>*/}
+                {/*    <button disabled={loading} className={page === totalPage ? s.navButton_focus : s.navButton} onClick={lastPage}>{totalPage}</button>*/}
+                {/*</>}*/}
+                <button className={s.arrows} onClick={()=>onChangePage(currentPage+1)} disabled={currentPage === 3}>{'>>'}</button>
+            </div>
+        </div>
+    );
+};
+
+export default Pagination;

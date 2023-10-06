@@ -1,0 +1,43 @@
+@import './src/scss/variables';
+
+.button {
+  display: inline-block;
+  background-color: $orange;
+  border-radius: 30px;
+  padding: 10px 15px;
+  max-width: 50px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color $duration ease-in-out, border-color $duration ease-in-out;
+  border: 1px solid transparent;
+  margin: 3px;
+  color: white;
+}
+
+.buttonOnFocus {
+  background-color: #fff;
+  //border-color: $orange;
+  padding: 10px 15px;
+  border-radius: 30px;
+  max-width: 50px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color $duration ease-in-out, border-color $duration ease-in-out;
+  border: 1px solid $orange;
+  margin: 3px;
+
+  &:hover {
+    background-color: $orange;
+  }
+
+  &:active {
+    background-color: darken($orange, 8%);
+  }
+}
+
+.arrows {
+  color: $orange;
+  background-color: #fff;
+  border: none;
+  margin: 3px;
+}
