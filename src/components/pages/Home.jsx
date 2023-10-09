@@ -6,31 +6,24 @@ import PizzaBlock from "../PizzaBlock";
 import './../../App.css';
 import Pagination from "../pagination/Pagination";
 import {AppContext} from "../../App";
+import {useDispatch, useSelector} from "react-redux";
+import {setCategoryRedux} from "../../redux/slices/filterSlice";
 
 const Home = () => {
+
+    const filter = useSelector((state) => state.counter.value)
+    const dispatch = useDispatch()
+
     const [items, setItems] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    const [categoryIndex, setCategoryIndex] = useState(0)
     const [isOpenPopup, setIsOpenPopup] = useState(false)
     const [selected, setSelected] = useState({property: 'popularity',  title:'популярности'})
     const [currentPage, setCurrentPage] = useState(1)
 
     const {searchValue} = useContext(AppContext)
-    // const [searchValue, setSearchValue] = useState('')
-
-    const categories = [
-        {id: 1, title: 'Все'},
-        {id: 2, title: 'Мясные'},
-        {id: 3, title: 'Вегетарианская'},
-        {id: 4, title: 'Гриль'},
-        {id: 5, title: 'Острые'},
-        {id: 6, title: 'Закрытые'}
-    ]
-
-
 
     useEffect(() => {
-        const category = categoryIndex > 0 ? `category=${categoryIndex.toString()}`: ''
+        const category = filter > 0 ? `category=${filter.toString()}`: ''
         const search = searchValue ? `search=${searchValue}`: ''
         const sortBy = `sortBy=${selected.property.replace('-', '')}`
         const order = `order=${selected.property.includes('-') ? 'desc' : 'asc'}`
@@ -47,10 +40,11 @@ const Home = () => {
                 setIsLoading(false)
             })
         window.scrollTo(0, 0)
-    }, [categoryIndex, selected, searchValue, currentPage])
+    }, [filter, selected, searchValue, currentPage])
 
     const onClickCategory = (index) => {
-        setCategoryIndex(index)
+        // setCategoryIndex(index)
+        dispatch(setCategoryRedux(index))
     }
 
    const onChangePage = (page) => {
@@ -60,11 +54,7 @@ const Home = () => {
     return (
         <div className="container">
             <div className="content__top">
-                <Categories
-                    categories={categories}
-                    categoryIndex={categoryIndex}
-                    onClickCategory={onClickCategory}
-                />
+                <Categories onClickCategory={onClickCategory}/>
                 <Sort
                     sortValue={selected}
                     onClickSort={setSelected}
