@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
     value: 0,
@@ -16,19 +16,12 @@ export const counterReducer = createSlice({
     name: 'filter',
     initialState,
     reducers: {
-        increment: (state) => {
-
-            state.value += 1
-        },
-        decrement: (state) => {
-            state.value -= 1
-        },
-        setCategoryRedux: (state, action) => {
+        setCategoryId: (state, action) => {
             state.value = action.payload
         },
     },
 })
 
-export const { increment, decrement, setCategoryRedux } = counterReducer.actions
+export const {setCategoryId} = counterReducer.actions
 
 export default counterReducer.reducer

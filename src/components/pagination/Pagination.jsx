@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import s from './Pagination.module.scss'
+import {useSelector} from "react-redux";
 
-const Pagination = ({items, onChangePage, currentPage}) => {
+const Pagination = ({onChangePage}) => {
+    const {currentPage, pizzasTotalCount, pageCount} = useSelector((state) => state.pagination)
 
-    const pizzasTotalCount = 10
-    const pageCount = 4
+    // const pizzasTotalCount = 10
+    // const pageCount = 4
 
     const totalPage = Math.ceil(pizzasTotalCount / pageCount)
 
