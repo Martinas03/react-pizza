@@ -7,7 +7,7 @@ import paginationReducer from "./slices/paginationSlice";
 
 export const store = configureStore({
     reducer: {
-        counter: counterReducer,
+        filter: counterReducer,
         sort: sortReducer,
         pizza: pizzaReducer,
         pagination: paginationReducer

@@ -5,12 +5,10 @@ import {useSelector} from "react-redux";
 const Pagination = ({onChangePage}) => {
     const {currentPage, pizzasTotalCount, pageCount} = useSelector((state) => state.pagination)
 
-    // const pizzasTotalCount = 10
-    // const pageCount = 4
-
     const totalPage = Math.ceil(pizzasTotalCount / pageCount)
 
     const pagesArray = Array(totalPage).fill(1).map((i, index) => index + 1)
+
 
 
 

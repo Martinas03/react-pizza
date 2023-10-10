@@ -1,11 +1,10 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Categories from "../Categories";
 import Sort from "../Sort";
 import PizzaBlockSkeleton from "../Skeletons/PizzaBlockSkeleton";
 import PizzaBlock from "../PizzaBlock";
 import './../../App.css';
 import Pagination from "../pagination/Pagination";
-import {AppContext} from "../../App";
 import {useDispatch, useSelector} from "react-redux";
 import {setCategoryId} from "../../redux/slices/filterSlice";
 import axios from "axios";
@@ -14,7 +13,7 @@ import {setCurrentPage} from "../../redux/slices/paginationSlice";
 
 const Home = () => {
 
-    const filter = useSelector((state) => state.counter.value)
+    const {categoryId, searchValue} = useSelector((state) => state.filter)
     const sort = useSelector((state) => state.sort.sortValue)
     const pizzas = useSelector((state) => state.pizza.pizzas)
     const currentPage = useSelector((state) => state.pagination.currentPage)
@@ -23,10 +22,10 @@ const Home = () => {
     const [isLoading, setIsLoading] = useState(true)
     // const [currentPage, setCurrentPage] = useState(1)
 
-    const {searchValue} = useContext(AppContext)
+    // const {searchValue} = useContext(AppContext)
 
     useEffect(() => {
-        const category = filter > 0 ? `category=${filter.toString()}` : ''
+        const category = categoryId > 0 ? `category=${categoryId.toString()}` : ''
         const search = searchValue ? `search=${searchValue}` : ''
         const sortBy = `sortBy=${sort.property.replace('-', '')}`
         const order = `order=${sort.property.includes('-') ? 'desc' : 'asc'}`
@@ -39,7 +38,7 @@ const Home = () => {
                 setIsLoading(false)
             })
         window.scrollTo(0, 0)
-    }, [filter, sort, searchValue, currentPage])
+    }, [categoryId, sort, searchValue, currentPage])
 
     const onClickCategory = (index) => {
         // setCategoryIndex(index)

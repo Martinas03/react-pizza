@@ -1,7 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
-    value: 0,
+    categoryId: 0,
+    searchValue: '',
     categories: [
         {id: 1, title: 'Все'},
         {id: 2, title: 'Мясные'},
@@ -17,11 +18,15 @@ export const counterReducer = createSlice({
     initialState,
     reducers: {
         setCategoryId: (state, action) => {
-            state.value = action.payload
+            state.categoryId = action.payload
         },
+        setSearchValue: (state, action) => {
+            state.searchValue = action.payload
+        },
+
     },
 })
 
-export const {setCategoryId} = counterReducer.actions
+export const {setCategoryId, setSearchValue} = counterReducer.actions
 
 export default counterReducer.reducer
