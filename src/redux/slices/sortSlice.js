@@ -22,12 +22,16 @@ export const sortReducer = createSlice({
         // decrement: (state) => {
         //     state.value -= 1
         // },
-        setSortValue: (state, action) => {
-            state.sortValue = action.payload
-        },
+        // setSortValue: (state, action) => {
+        //     state.sortValue = action.payload
+        // },
+        // setFilterSortParams: (state, action) => {
+        //     state.sortValue = action.payload.sortValue
+        // },
+
     },
 })
 
-export const {increment, decrement, setSortValue} = sortReducer.actions
+export const {setFilterSortParams} = sortReducer.actions
 
 export default sortReducer.reducer

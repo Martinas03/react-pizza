@@ -1,12 +1,11 @@
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {setSortValue} from "../redux/slices/sortSlice";
+import {setSortValue} from "../redux/slices/filterSlice";
 
 function Sort() {
 
     const [isOpenPopup, setIsOpenPopup] = useState(false)
-    const sortList = useSelector((state) => state.sort.sortList)
-    const sort = useSelector((state) => state.sort.sortValue)
+    const {sortValue, sortList} = useSelector(state => state.filter)
     const dispatch = useDispatch()
 
     const onClickActive = (index) => {
@@ -14,7 +13,6 @@ function Sort() {
         dispatch(setSortValue(index))
         setIsOpenPopup(false)
     }
-
     // const sortList = [
     //     {property: 'popularity', title: 'популярности'},
     //     {property: '-popularity', title: 'популярности(DESC)'},
@@ -40,7 +38,7 @@ function Sort() {
             <b>Сортировка по:</b>
             <span onClick={() => {
                 setIsOpenPopup(!isOpenPopup)
-            }}>{sort.title}</span>
+            }}>{sortValue.title}</span>
         </div>
         {isOpenPopup &&
         <div className="sort__popup">
@@ -48,7 +46,7 @@ function Sort() {
                 {sortList.map((obj, i) => {
                     return <li key={i}
                                onClick={() => onClickActive(obj)}
-                               className={sort.title === obj.title ? "active" : ''}>
+                               className={sortValue.title === obj.title ? "active" : ''}>
                         {obj.title}
                     </li>
                 })}
