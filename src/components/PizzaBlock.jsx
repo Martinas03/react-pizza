@@ -1,14 +1,23 @@
 import React, {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {setItemIndex, setSizeIndex} from "../redux/slices/pizzaSlice";
 
 function PizzaBlock({title,image,  price, type, size}) {
-    const [itemIndex, setItemIndex] = useState(0)
-    const [typeIndex, setTypeIndex] = useState(0)
-    const onClickActive = (index) => {
-        setItemIndex(index)
+    const pizzaIndex = useSelector((state) => state.pizza.itemIndex)
+    const sizeIndex = useSelector((state) => state.pizza.sizeIndex)
+    const dispatch = useDispatch()
+
+    // const [itemIndex, setItemIndex] = useState(0)
+    // const [typeIndex, setTypeIndex] = useState(0)
+
+    const onClickSizeActive = (index) => {
+        dispatch(setSizeIndex(index))
+        // setItemIndex(index)
     }
 
     const onClickTypeActive = (index) => {
-        setTypeIndex(index)
+        // setTypeIndex(index)
+        dispatch(setItemIndex(index))
     }
 
     const typeNames = ['тонкое', 'традиционное']
@@ -27,15 +36,15 @@ function PizzaBlock({title,image,  price, type, size}) {
                     <ul>
                         {type.map((t)=> {
                             return <li key={t} onClick={()=>{onClickTypeActive(t)}}
-                                       className={typeIndex === t ?"active" : ''}>{
+                                       className={pizzaIndex === t ?"active" : ''}>{
                                 typeNames[t]
                             }</li>
                         })}
                     </ul>
                     <ul>
                         {size.map((s, i) => {
-                            return <li key={i} onClick={()=>{onClickActive(i)}}
-                                       className={itemIndex === i ?"active" : ''}>{s}
+                            return <li key={i} onClick={()=>{onClickSizeActive(i)}}
+                                       className={sizeIndex === i ?"active" : ''}>{s}
                             </li>
                         })}
                     </ul>

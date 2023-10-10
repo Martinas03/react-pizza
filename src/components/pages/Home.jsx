@@ -12,12 +12,12 @@ import {setCategoryRedux} from "../../redux/slices/filterSlice";
 const Home = () => {
 
     const filter = useSelector((state) => state.counter.value)
+    const sort = useSelector((state) => state.sort.sortValue)
+    // const pizzas = useSelector((state) => state.pizza.itemIndex)
     const dispatch = useDispatch()
 
     const [items, setItems] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    const [isOpenPopup, setIsOpenPopup] = useState(false)
-    const [selected, setSelected] = useState({property: 'popularity',  title:'популярности'})
     const [currentPage, setCurrentPage] = useState(1)
 
     const {searchValue} = useContext(AppContext)
@@ -25,8 +25,8 @@ const Home = () => {
     useEffect(() => {
         const category = filter > 0 ? `category=${filter.toString()}`: ''
         const search = searchValue ? `search=${searchValue}`: ''
-        const sortBy = `sortBy=${selected.property.replace('-', '')}`
-        const order = `order=${selected.property.includes('-') ? 'desc' : 'asc'}`
+        const sortBy = `sortBy=${sort.property.replace('-', '')}`
+        const order = `order=${sort.property.includes('-') ? 'desc' : 'asc'}`
         const limit = `limit=4`
         const page = `page=${currentPage}`
         setIsLoading(true)
@@ -35,12 +35,12 @@ const Home = () => {
                 return res.json()
             })
             .then((arr) => {
-                console.log(selected.property)
+                console.log(sort.property)
                 setItems(arr)
                 setIsLoading(false)
             })
         window.scrollTo(0, 0)
-    }, [filter, selected, searchValue, currentPage])
+    }, [filter, sort, searchValue, currentPage])
 
     const onClickCategory = (index) => {
         // setCategoryIndex(index)
@@ -55,20 +55,13 @@ const Home = () => {
         <div className="container">
             <div className="content__top">
                 <Categories onClickCategory={onClickCategory}/>
-                <Sort
-                    sortValue={selected}
-                    onClickSort={setSelected}
-                    isOpenPopup={isOpenPopup}
-                    setIsOpenPopup={setIsOpenPopup}
-                />
+                <Sort/>
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
                 {isLoading ? [...new Array(3)].map((item, i) => {
                     return <PizzaBlockSkeleton key={i}/>
-                }) : items
-                    // .filter(pizza => pizza.title.toLowerCase().includes(searchValue.toLowerCase()))
-                    .map(obj => {
+                }) : items.map(obj => {
                     return <PizzaBlock
                         key={obj.id}
                         title={obj.title}
