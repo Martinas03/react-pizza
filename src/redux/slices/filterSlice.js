@@ -3,7 +3,8 @@ import {createSlice} from '@reduxjs/toolkit'
 const initialState = {
     categoryId: 0,
     searchValue: '',
-    sortValue: {property: 'popularity', title: 'популярности'},
+    sortValue: {property: 'rating', title: 'популярности'},
+    currentPage: 1,
     categories: [
         {id: 1, title: 'Все'},
         {id: 2, title: 'Мясные'},
@@ -13,8 +14,8 @@ const initialState = {
         {id: 6, title: 'Закрытые'}
     ],
     sortList: [
-        {property: 'popularity', title: 'популярности'},
-        {property: '-popularity', title: 'популярности(DESC)'},
+        {property: 'rating', title: 'популярности'},
+        {property: '-rating', title: 'популярности(DESC)'},
         {property: 'price', title: 'цене'},
         {property: '-price', title: 'цене(DESC)'},
         {property: 'title', title: 'алфавиту'},
@@ -32,17 +33,21 @@ export const counterReducer = createSlice({
             state.searchValue = action.payload
         },
         setFilterParams: (state, action) => {
-            // state.sortValue = action.payload.sortValue
+            state.sortValue = action.payload.sort
             state.categoryId = Number(action.payload.categoryId)
             state.searchValue = action.payload.searchValue
+            state.currentPage = Number(action.payload.currentPage)
+            console.log(action.payload)
         },
         setSortValue: (state, action) => {
             state.sortValue = action.payload
         },
-
+        setCurrentPage: (state, action) => {
+            state.currentPage = action.payload
+        },
     },
 })
 
-export const {setCategoryId, setSearchValue, setFilterParams, setSortValue} = counterReducer.actions
+export const {setCategoryId, setSearchValue, setFilterParams, setSortValue, setCurrentPage} = counterReducer.actions
 
 export default counterReducer.reducer

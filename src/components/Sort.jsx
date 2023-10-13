@@ -5,21 +5,16 @@ import {setSortValue} from "../redux/slices/filterSlice";
 function Sort() {
 
     const [isOpenPopup, setIsOpenPopup] = useState(false)
-    const {sortValue, sortList} = useSelector(state => state.filter)
+    const sortValue = useSelector(state => state.filter.sortValue)
+    const sortList = useSelector((state) => state.filter.sortList)
+
     const dispatch = useDispatch()
 
     const onClickActive = (index) => {
-        // onClickSort(index)
         dispatch(setSortValue(index))
         setIsOpenPopup(false)
     }
-    // const sortList = [
-    //     {property: 'popularity', title: 'популярности'},
-    //     {property: '-popularity', title: 'популярности(DESC)'},
-    //     {property: 'price', title: 'цене'},
-    //     {property: '-price', title: 'цене(DESC)'},
-    //     {property: 'title', title: 'алфавиту'},
-    //     {property: '-title', title: 'алфавиту(DESC)'}]
+
 
     return <div className="sort">
         <div className="sort__label">

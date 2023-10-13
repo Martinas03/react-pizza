@@ -1,14 +1,14 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
-    sortValue: {property: 'popularity', title: 'популярности'},
-    sortList: [
-        {property: 'popularity', title: 'популярности'},
-        {property: '-popularity', title: 'популярности(DESC)'},
-        {property: 'price', title: 'цене'},
-        {property: '-price', title: 'цене(DESC)'},
-        {property: 'title', title: 'алфавиту'},
-        {property: '-title', title: 'алфавиту(DESC)'}]
+    // sortValue: {property: 'popularity', title: 'популярности'},
+    // sortList: [
+    //     {property: 'popularity', title: 'популярности'},
+    //     {property: '-popularity', title: 'популярности(DESC)'},
+    //     {property: 'price', title: 'цене'},
+    //     {property: '-price', title: 'цене(DESC)'},
+    //     {property: 'title', title: 'алфавиту'},
+    //     {property: '-title', title: 'алфавиту(DESC)'}]
 }
 
 export const sortReducer = createSlice({

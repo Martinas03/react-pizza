@@ -1,15 +1,19 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import s from './Pagination.module.scss'
 import {useSelector} from "react-redux";
 
 const Pagination = ({onChangePage}) => {
-    const {currentPage, pizzasTotalCount, pageCount} = useSelector((state) => state.pagination)
+    const {pizzasTotalCount, pageCount} = useSelector((state) => state.pagination)
+    const currentPage = useSelector((state) => state.filter.currentPage)
+
 
     const totalPage = Math.ceil(pizzasTotalCount / pageCount)
 
     const pagesArray = Array(totalPage).fill(1).map((i, index) => index + 1)
 
-
+useEffect(()=> {
+    console.log(currentPage)
+}, [currentPage])
 
 
     return (

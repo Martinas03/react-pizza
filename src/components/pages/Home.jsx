@@ -6,41 +6,38 @@ import PizzaBlock from "../PizzaBlock";
 import './../../App.css';
 import Pagination from "../pagination/Pagination";
 import {useDispatch, useSelector} from "react-redux";
-import {setCategoryId, setFilterParams} from "../../redux/slices/filterSlice";
+import {setCategoryId, setCurrentPage, setFilterParams} from "../../redux/slices/filterSlice";
 import axios from "axios";
 import {getPizzas} from "../../redux/slices/pizzaSlice";
-import {setCurrentPage, setFilterPageParams} from "../../redux/slices/paginationSlice";
+import { setFilterPageParams} from "../../redux/slices/paginationSlice";
 import qs from 'qs'
 import {useNavigate} from 'react-router-dom'
-import {setFilterSortParams} from "../../redux/slices/sortSlice";
+// import {sortList} from '../Sort'
+// import {setFilterSortParams} from "../../redux/slices/sortSlice";
 
 
 const Home = () => {
 
-    const {categoryId, searchValue, sortValue, sortList} = useSelector((state) => state.filter)
-    // const sortList = useSelector((state) => state.sort.sortList)
+    const {categoryId, searchValue, sortValue, currentPage} = useSelector((state) => state.filter)
+    const sortList = useSelector((state) => state.filter.sortList)
     const pizzas = useSelector((state) => state.pizza.pizzas)
-    const currentPage = useSelector((state) => state.pagination.currentPage)
     const dispatch = useDispatch()
 
     const [isLoading, setIsLoading] = useState(true)
 
     const navigate = useNavigate()
-    // const [currentPage, setCurrentPage] = useState(1)
 
-    // const {searchValue} = useContext(AppContext)
+
 
     useEffect(() => {
         if(window.location.search) {
             const params = qs.parse(window.location.search.substring(1))
             const sort = sortList.find(obj => obj.property === params.sort)
+            console.log(params.currentPage)
 
             dispatch(setFilterParams({...params, sort}))
-            // dispatch(setFilterPageParams(params.page))
-            // dispatch(setFilterSortParams({...params, sort}))
-            console.log(params)
+            // dispatch(setFilterPageParams({currentPage: params.currentPage}))
         }
-        // console.log(sortValue, sortList)
     }, [])
 
     useEffect(() => {
@@ -68,7 +65,6 @@ const Home = () => {
             currentPage
         })
 navigate(`?${queryString}`)
-        console.log(queryString)
     }, [categoryId, sortValue, searchValue, currentPage])
 
     const onClickCategory = (index) => {
@@ -84,7 +80,7 @@ navigate(`?${queryString}`)
         <div className="container">
             <div className="content__top">
                 <Categories onClickCategory={onClickCategory}/>
-                <Sort/>
+                <Sort />
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">

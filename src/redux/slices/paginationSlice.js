@@ -10,12 +10,13 @@ export const paginationReducer = createSlice({
     name: 'sort',
     initialState,
     reducers: {
-        setCurrentPage: (state, action) => {
-            state.currentPage = action.payload
-        },
-        // setFilterPageParams: (state, action) => {
+        // setCurrentPage: (state, action) => {
         //     state.currentPage = action.payload
         // },
+        setFilterPageParams: (state, action) => {
+            state.currentPage = action.payload.currentPage
+            console.log(action.payload)
+        },
     },
 })
 
