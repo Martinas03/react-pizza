@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Categories from "../Categories";
 import Sort from "../Sort";
 import PizzaBlockSkeleton from "../Skeletons/PizzaBlockSkeleton";
@@ -9,15 +9,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {setCategoryId, setCurrentPage, setFilterParams} from "../../redux/slices/filterSlice";
 import axios from "axios";
 import {getPizzas} from "../../redux/slices/pizzaSlice";
-import { setFilterPageParams} from "../../redux/slices/paginationSlice";
 import qs from 'qs'
 import {useNavigate} from 'react-router-dom'
-// import {sortList} from '../Sort'
-// import {setFilterSortParams} from "../../redux/slices/sortSlice";
-
 
 const Home = () => {
-
+    const isMounted = useRef(false)
+    const isSearch = useRef(false)
     const {categoryId, searchValue, sortValue, currentPage} = useSelector((state) => state.filter)
     const sortList = useSelector((state) => state.filter.sortList)
     const pizzas = useSelector((state) => state.pizza.pizzas)
@@ -27,44 +24,56 @@ const Home = () => {
 
     const navigate = useNavigate()
 
+    const fetchPizzas = () => {
 
-
-    useEffect(() => {
-        if(window.location.search) {
-            const params = qs.parse(window.location.search.substring(1))
-            const sort = sortList.find(obj => obj.property === params.sort)
-            console.log(params.currentPage)
-
-            dispatch(setFilterParams({...params, sort}))
-            // dispatch(setFilterPageParams({currentPage: params.currentPage}))
-        }
-    }, [])
-
-    useEffect(() => {
+        setIsLoading(true)
         const category = categoryId > 0 ? `category=${categoryId.toString()}` : ''
         const search = searchValue ? `search=${searchValue}` : ''
         const sortBy = `sortBy=${sortValue.property.replace('-', '')}`
         const order = `order=${sortValue.property.includes('-') ? 'desc' : 'asc'}`
         const limit = `limit=4`
         const page = `page=${currentPage}`
-        setIsLoading(true)
+
         axios.get(`https://651a96bd340309952f0d8f19.mockapi.io/items?${search}&${page}&${limit}&${category}&${sortBy}&${order}`)
             .then(res => {
                 dispatch(getPizzas(res.data))
                 setIsLoading(false)
             })
+    }
+
+
+    useEffect(() => {
+        if (window.location.search) {
+            const params = qs.parse(window.location.search.substring(1))
+            const sort = sortList.find(obj => obj.property === params.sort)
+            console.log(params.currentPage)
+
+            dispatch(setFilterParams({...params, sort}))
+            // dispatch(setFilterPageParams({currentPage: params.currentPage}))
+            isSearch.current = true
+        }
+    }, [])
+
+    useEffect(() => {
+        if (!isSearch.current) {
+            fetchPizzas()
+        }
+        isSearch.current = false
         window.scrollTo(0, 0)
     }, [categoryId, sortValue, searchValue, currentPage])
 
-    useEffect(()=> {
+    useEffect(() => {
+        if (isMounted.current) {
+            const queryString = qs.stringify({
+                sort: sortValue.property,
+                categoryId,
+                searchValue,
+                currentPage
+            })
+            navigate(`?${queryString}`)
+        }
+        isMounted.current = true
 
-        const queryString = qs.stringify({
-            sort: sortValue.property,
-            categoryId,
-            searchValue,
-            currentPage
-        })
-navigate(`?${queryString}`)
     }, [categoryId, sortValue, searchValue, currentPage])
 
     const onClickCategory = (index) => {
@@ -80,7 +89,7 @@ navigate(`?${queryString}`)
         <div className="container">
             <div className="content__top">
                 <Categories onClickCategory={onClickCategory}/>
-                <Sort />
+                <Sort/>
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
