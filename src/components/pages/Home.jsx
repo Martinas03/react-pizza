@@ -11,6 +11,7 @@ import axios from "axios";
 import {getPizzas} from "../../redux/slices/pizzaSlice";
 import qs from 'qs'
 import {useNavigate} from 'react-router-dom'
+import {addItem} from "../../redux/slices/cartSlice";
 
 const Home = () => {
     const isMounted = useRef(false)
@@ -21,6 +22,7 @@ const Home = () => {
     const dispatch = useDispatch()
 
     const [isLoading, setIsLoading] = useState(true)
+    const [count, setCount] = useState(0)
 
     const navigate = useNavigate()
 
@@ -49,7 +51,6 @@ const Home = () => {
             console.log(params.currentPage)
 
             dispatch(setFilterParams({...params, sort}))
-            // dispatch(setFilterPageParams({currentPage: params.currentPage}))
             isSearch.current = true
         }
     }, [])
@@ -85,6 +86,11 @@ const Home = () => {
         dispatch(setCurrentPage(page))
     }
 
+    const onAddItem = (count, setCount, item) => {
+        dispatch(addItem(item))
+        setCount(count + 1)
+    }
+
     return (
         <div className="container">
             <div className="content__top">
@@ -103,6 +109,8 @@ const Home = () => {
                         price={obj.price}
                         type={obj.types}
                         size={obj.sizes}
+                        count={count}
+                        onAddItem={()=>onAddItem(count, setCount, obj)}
                     />
 
                 })}

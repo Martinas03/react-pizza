@@ -1,12 +1,15 @@
 import React, {useState} from "react";
+import {useDispatch} from "react-redux";
 // import {useDispatch, useSelector} from "react-redux";
 // import {setItemIndex, setSizeIndex} from "../redux/slices/pizzaSlice";
 
-function PizzaBlock({title,image,  price, type, size}) {
+function PizzaBlock({title,image,  price, type, size, count, onAddItem}) {
     // const pizzaIndex = useSelector((state) => state.pizza.itemIndex)
     // const sizeIndex = useSelector((state) => state.pizza.sizeIndex)
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
+
+    // const [item, setItem] = useState(0)
     const [itemIndex, setItemIndex] = useState(0)
     const [typeIndex, setTypeIndex] = useState(0)
 
@@ -51,7 +54,7 @@ function PizzaBlock({title,image,  price, type, size}) {
                 </div>
                 <div className="pizza-block__bottom">
                     <div className="pizza-block__price">от {price} ₽</div>
-                    <div className="button button--outline button--add">
+                    <button onClick={onAddItem} className="button button--outline button--add">
                         <svg
                             width="12"
                             height="12"
@@ -65,8 +68,8 @@ function PizzaBlock({title,image,  price, type, size}) {
                             />
                         </svg>
                         <span>Добавить</span>
-                        <i>0</i>
-                    </div>
+                        <i>{count}</i>
+                    </button>
                 </div>
             </>
         </div>;

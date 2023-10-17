@@ -20,7 +20,7 @@ function Sort() {
         document.body.addEventListener('click', outSideHandler)
 
         return () => {
-            document.removeEventListener('click', outSideHandler)
+            document.body.removeEventListener('click', outSideHandler)
         }
 
     }, [])

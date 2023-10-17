@@ -3,6 +3,7 @@ import counterReducer from "./slices/filterSlice";
 import sortReducer from "./slices/sortSlice";
 import pizzaReducer from "./slices/pizzaSlice";
 import paginationReducer from "./slices/paginationSlice";
+import cartReducer from "./slices/cartSlice";
 
 
 export const store = configureStore({
@@ -10,7 +11,8 @@ export const store = configureStore({
         filter: counterReducer,
         sort: sortReducer,
         pizza: pizzaReducer,
-        pagination: paginationReducer
+        pagination: paginationReducer,
+        cart: cartReducer
     },
 })
 
