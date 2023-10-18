@@ -1,21 +1,28 @@
-import React, {useState} from "react";
-import {useDispatch} from "react-redux";
-// import {useDispatch, useSelector} from "react-redux";
+import React, {useEffect, useState} from "react";
+import {addItem} from "../redux/slices/cartSlice";
+import {useDispatch, useSelector} from "react-redux";
+
 // import {setItemIndex, setSizeIndex} from "../redux/slices/pizzaSlice";
 
-function PizzaBlock({title,image,  price, type, size, count, onAddItem}) {
-    // const pizzaIndex = useSelector((state) => state.pizza.itemIndex)
+function PizzaBlock({title, image, price, type, size, obj, onAddItem, id}) {
+    // const pizzaIndex = useSelector((state) => state.pizza.sizeIndex)
     // const sizeIndex = useSelector((state) => state.pizza.sizeIndex)
     const dispatch = useDispatch()
 
+    const typeNames = ['тонкое', 'традиционное']
+    const cartItems = useSelector((state) => state.cart.items.find(obj => obj.id === id))
+    const addedCount = cartItems ? cartItems.count : 0
 
     // const [item, setItem] = useState(0)
-    const [itemIndex, setItemIndex] = useState(0)
+    // const [count, setCount] = useState(0)
+
+    const [sizeIndex, setSizeIndex] = useState(0)
     const [typeIndex, setTypeIndex] = useState(0)
+
 
     const onClickSizeActive = (index) => {
         // dispatch(setSizeIndex(index))
-        setItemIndex(index)
+        setSizeIndex(index)
     }
 
     const onClickTypeActive = (index) => {
@@ -23,7 +30,20 @@ function PizzaBlock({title,image,  price, type, size, count, onAddItem}) {
         // dispatch(setItemIndex(index))
     }
 
-    const typeNames = ['тонкое', 'традиционное']
+    const onClickAdd = () => {
+        // onAddItem(count, setCount, obj)
+        const item = {
+            id,
+            title,
+            imageUrl: image,
+            price,
+            types: typeNames[typeIndex],
+            sizes: size[sizeIndex]
+        }
+        dispatch(addItem(item))
+
+        console.log(item.size)
+    }
 
 
     return <div className="pizza-block-wrapper">
@@ -37,24 +57,28 @@ function PizzaBlock({title,image,  price, type, size, count, onAddItem}) {
                 <h4 className="pizza-block__title">{title}</h4>
                 <div className="pizza-block__selector">
                     <ul>
-                        {type.map((t)=> {
-                            return <li key={t} onClick={()=>{onClickTypeActive(t)}}
-                                       className={typeIndex === t ?"active" : ''}>{
+                        {type.map((t) => {
+                            return <li key={t} onClick={() => {
+                                onClickTypeActive(t)
+                            }}
+                                       className={typeIndex === t ? "active" : ''}>{
                                 typeNames[t]
                             }</li>
                         })}
                     </ul>
                     <ul>
                         {size.map((s, i) => {
-                            return <li key={i} onClick={()=>{onClickSizeActive(i)}}
-                                       className={itemIndex === i ?"active" : ''}>{s}
+                            return <li key={i} onClick={() => {
+                                onClickSizeActive(i)
+                            }}
+                                       className={sizeIndex === i ? "active" : ''}>{s}
                             </li>
                         })}
                     </ul>
                 </div>
                 <div className="pizza-block__bottom">
                     <div className="pizza-block__price">от {price} ₽</div>
-                    <button onClick={onAddItem} className="button button--outline button--add">
+                    <button onClick={onClickAdd} className="button button--outline button--add">
                         <svg
                             width="12"
                             height="12"
@@ -68,11 +92,14 @@ function PizzaBlock({title,image,  price, type, size, count, onAddItem}) {
                             />
                         </svg>
                         <span>Добавить</span>
-                        <i>{count}</i>
+                        {addedCount > 0 &&<i>
+                            {addedCount}
+                        </i>}
                     </button>
                 </div>
             </>
-        </div>;
+        </div>
+        ;
     </div>
 }
 

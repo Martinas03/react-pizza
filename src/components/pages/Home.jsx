@@ -22,7 +22,6 @@ const Home = () => {
     const dispatch = useDispatch()
 
     const [isLoading, setIsLoading] = useState(true)
-    const [count, setCount] = useState(0)
 
     const navigate = useNavigate()
 
@@ -104,13 +103,14 @@ const Home = () => {
                 }) : pizzas.map(obj => {
                     return <PizzaBlock
                         key={obj.id}
+                        obj={obj}
                         title={obj.title}
                         image={obj.imageUrl}
                         price={obj.price}
                         type={obj.types}
                         size={obj.sizes}
-                        count={count}
-                        onAddItem={()=>onAddItem(count, setCount, obj)}
+                        id={obj.id}
+                        onAddItem={onAddItem}
                     />
 
                 })}

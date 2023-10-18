@@ -1,12 +1,25 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import pizzaLogo from './../assets/images/pizza.svg'
 import {Link} from "react-router-dom";
 import Search from "./search/Search";
 import {AppContext} from "../App";
+import {useDispatch, useSelector} from "react-redux";
+import {setTotalPrice} from "../redux/slices/cartSlice";
 
 function Header() {
-
+    const items = useSelector((state) => state.cart.items).reduce((sum, item)=> sum + item.count, 0)
+    const totalPrice = useSelector((state) => state.cart.totalPrice)
     const {searchValue, setSearchValue} = useContext(AppContext)
+    const dispatch = useDispatch()
+
+    // useEffect(()=> {
+    //     if(items.length) {
+    //         const sumOfPrices = items.map(i => i.price).reduce((a,b)=> a + b)
+    //         console.log(sumOfPrices)
+    //         dispatch(setTotalPrice(sumOfPrices))
+    //     }
+    // }, [items])
+
     return <div className="header">
         <div className="container">
             <Link to={'/'} className="header__logo">
@@ -23,7 +36,7 @@ function Header() {
                 <Link
                     to="cort"
                     className="button button--cart">
-                    <span>520 ₽</span>
+                    <span>{totalPrice} ₽</span>
                     <div className="button__delimiter"></div>
                     <svg
                         width="18"
@@ -54,7 +67,7 @@ function Header() {
                             strokeLinejoin="round"
                         />
                     </svg>
-                    <span>3</span>
+                    <span>{items}</span>
                 </Link>
             </div>
         </div>

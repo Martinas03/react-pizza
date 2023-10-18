@@ -10,6 +10,7 @@ export const AppContext = createContext()
 
 function App() {
     const [searchValue, setSearchValue] = useState('')
+
     return (
         <div className="App">
             <AppContext.Provider value={{searchValue, setSearchValue}}>
