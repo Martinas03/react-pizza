@@ -8,26 +8,21 @@ import Pagination from "../pagination/Pagination";
 import {useDispatch, useSelector} from "react-redux";
 import {setCategoryId, setCurrentPage, setFilterParams} from "../../redux/slices/filterSlice";
 import axios from "axios";
-import {getPizzas} from "../../redux/slices/pizzaSlice";
 import qs from 'qs'
 import {useNavigate} from 'react-router-dom'
 import {addItem} from "../../redux/slices/cartSlice";
+import {fetchPizzas} from "../../redux/slices/pizzaSlice";
 
 const Home = () => {
     const isMounted = useRef(false)
     const isSearch = useRef(false)
     const {categoryId, searchValue, sortValue, currentPage} = useSelector((state) => state.filter)
     const sortList = useSelector((state) => state.filter.sortList)
-    const pizzas = useSelector((state) => state.pizza.pizzas)
+    const {pizzas, pizzaStatus} = useSelector((state) => state.pizza)
     const dispatch = useDispatch()
-
-    const [isLoading, setIsLoading] = useState(true)
-
     const navigate = useNavigate()
 
-    const fetchPizzas = () => {
-
-        setIsLoading(true)
+    const getPizzas = () => {
         const category = categoryId > 0 ? `category=${categoryId.toString()}` : ''
         const search = searchValue ? `search=${searchValue}` : ''
         const sortBy = `sortBy=${sortValue.property.replace('-', '')}`
@@ -35,11 +30,8 @@ const Home = () => {
         const limit = `limit=4`
         const page = `page=${currentPage}`
 
-        axios.get(`https://651a96bd340309952f0d8f19.mockapi.io/items?${search}&${page}&${limit}&${category}&${sortBy}&${order}`)
-            .then(res => {
-                dispatch(getPizzas(res.data))
-                setIsLoading(false)
-            })
+        dispatch(fetchPizzas({category, search, sortBy, order, limit, page}))
+        window.scrollTo(0, 0)
     }
 
 
@@ -47,8 +39,6 @@ const Home = () => {
         if (window.location.search) {
             const params = qs.parse(window.location.search.substring(1))
             const sort = sortList.find(obj => obj.property === params.sort)
-            console.log(params.currentPage)
-
             dispatch(setFilterParams({...params, sort}))
             isSearch.current = true
         }
@@ -56,7 +46,7 @@ const Home = () => {
 
     useEffect(() => {
         if (!isSearch.current) {
-            fetchPizzas()
+            getPizzas()
         }
         isSearch.current = false
         window.scrollTo(0, 0)
@@ -98,9 +88,9 @@ const Home = () => {
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
-                {isLoading ? [...new Array(3)].map((item, i) => {
+                {pizzaStatus === 'loading' ? [...new Array(3)].map((item, i) => {
                     return <PizzaBlockSkeleton key={i}/>
-                }) : pizzas.map(obj => {
+                }) : pizzaStatus === 'success' ? pizzas.map(obj => {
                     return <PizzaBlock
                         key={obj.id}
                         obj={obj}
@@ -113,7 +103,7 @@ const Home = () => {
                         onAddItem={onAddItem}
                     />
 
-                })}
+                }) : <h2>Пиццы не найдены</h2>}
             </div>
             <Pagination onChangePage={onChangePage}/>
         </div>
