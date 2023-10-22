@@ -42,12 +42,11 @@ export const cartReducer = createSlice({
         clearItem: (state, action) => {
             state.items = []
         },
-
-        // setTotalPrice: (state, action) => {
-        //     state.totalPrice = action.payload
-        // },
     },
 })
+
+export const cartSelector = (state) => state.cart
+export const cartItemsSelector = (id) => (state) => state.cart.items.find(obj => obj.id === id)
 
 export const {addItem, removeItem, clearItem, minusItem} = cartReducer.actions
 

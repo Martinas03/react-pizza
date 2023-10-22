@@ -48,6 +48,8 @@ export const counterReducer = createSlice({
     },
 })
 
+export const filterSelector = (state) => state.filter
+
 export const {setCategoryId, setSearchValue, setFilterParams, setSortValue, setCurrentPage} = counterReducer.actions
 
 export default counterReducer.reducer

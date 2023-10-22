@@ -6,19 +6,17 @@ import PizzaBlock from "../PizzaBlock";
 import './../../App.css';
 import Pagination from "../pagination/Pagination";
 import {useDispatch, useSelector} from "react-redux";
-import {setCategoryId, setCurrentPage, setFilterParams} from "../../redux/slices/filterSlice";
-import axios from "axios";
+import {filterSelector, setCategoryId, setCurrentPage, setFilterParams} from "../../redux/slices/filterSlice";
 import qs from 'qs'
 import {useNavigate} from 'react-router-dom'
 import {addItem} from "../../redux/slices/cartSlice";
-import {fetchPizzas} from "../../redux/slices/pizzaSlice";
+import {fetchPizzas, pizzaSelector} from "../../redux/slices/pizzaSlice";
 
 const Home = () => {
     const isMounted = useRef(false)
     const isSearch = useRef(false)
-    const {categoryId, searchValue, sortValue, currentPage} = useSelector((state) => state.filter)
-    const sortList = useSelector((state) => state.filter.sortList)
-    const {pizzas, pizzaStatus} = useSelector((state) => state.pizza)
+    const {categoryId, searchValue, sortValue, currentPage, sortList} = useSelector(filterSelector)
+    const {pizzas, pizzaStatus} = useSelector(pizzaSelector)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 

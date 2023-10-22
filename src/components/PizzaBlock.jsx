@@ -1,37 +1,29 @@
-import React, {useEffect, useState} from "react";
-import {addItem} from "../redux/slices/cartSlice";
+import React, {useState} from "react";
+import {addItem, cartItemsSelector} from "../redux/slices/cartSlice";
 import {useDispatch, useSelector} from "react-redux";
 
-// import {setItemIndex, setSizeIndex} from "../redux/slices/pizzaSlice";
 
 function PizzaBlock({title, image, price, type, size, obj, onAddItem, id}) {
-    // const pizzaIndex = useSelector((state) => state.pizza.sizeIndex)
-    // const sizeIndex = useSelector((state) => state.pizza.sizeIndex)
+
     const dispatch = useDispatch()
 
     const typeNames = ['тонкое', 'традиционное']
-    const cartItems = useSelector((state) => state.cart.items.find(obj => obj.id === id))
+    const cartItems = useSelector(cartItemsSelector(id))
     const addedCount = cartItems ? cartItems.count : 0
-
-    // const [item, setItem] = useState(0)
-    // const [count, setCount] = useState(0)
 
     const [sizeIndex, setSizeIndex] = useState(0)
     const [typeIndex, setTypeIndex] = useState(0)
 
 
     const onClickSizeActive = (index) => {
-        // dispatch(setSizeIndex(index))
         setSizeIndex(index)
     }
 
     const onClickTypeActive = (index) => {
         setTypeIndex(index)
-        // dispatch(setItemIndex(index))
     }
 
     const onClickAdd = () => {
-        // onAddItem(count, setCount, obj)
         const item = {
             id,
             title,

@@ -3,26 +3,17 @@ import pizzaLogo from './../assets/images/pizza.svg'
 import {Link} from "react-router-dom";
 import Search from "./search/Search";
 import {AppContext} from "../App";
-import {useDispatch, useSelector} from "react-redux";
-import {setTotalPrice} from "../redux/slices/cartSlice";
+import {useSelector} from "react-redux";
+import {cartSelector} from "../redux/slices/cartSlice";
 
 function Header() {
-    const items = useSelector((state) => state.cart.items).reduce((sum, item)=> sum + item.count, 0)
-    const totalPrice = useSelector((state) => state.cart.totalPrice)
-    const {searchValue, setSearchValue} = useContext(AppContext)
-    const dispatch = useDispatch()
+    const {totalPrice, items} = useSelector(cartSelector)
 
-    // useEffect(()=> {
-    //     if(items.length) {
-    //         const sumOfPrices = items.map(i => i.price).reduce((a,b)=> a + b)
-    //         console.log(sumOfPrices)
-    //         dispatch(setTotalPrice(sumOfPrices))
-    //     }
-    // }, [items])
+    const itemsCount = items.reduce((sum, item) => sum + item.count, 0)
 
     return <div className="header">
         <div className="container">
-            <Link to={'/'} className="header__logo">
+            <Link to={'/react-pizza'} className="header__logo">
                 <img width="38"
                      src={pizzaLogo}
                      alt="Pizza logo"/>
@@ -31,10 +22,10 @@ function Header() {
                     <p>самая вкусная пицца во вселенной</p>
                 </div>
             </Link>
-            <Search searchValue={searchValue} setSearchValue={setSearchValue}/>
+            <Search/>
             <div className="header__cart">
                 <Link
-                    to="cort"
+                    to="cart"
                     className="button button--cart">
                     <span>{totalPrice} ₽</span>
                     <div className="button__delimiter"></div>
@@ -67,7 +58,7 @@ function Header() {
                             strokeLinejoin="round"
                         />
                     </svg>
-                    <span>{items}</span>
+                    <span>{itemsCount}</span>
                 </Link>
             </div>
         </div>

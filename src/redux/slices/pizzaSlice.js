@@ -24,7 +24,6 @@ export const pizzaReducer = createSlice({
         },
         setItemIndex: (state, action) => {
             state.itemIndex = action.payload
-
         },
         setSizeIndex: (state, action) => {
             state.sizeIndex = action.payload
@@ -47,6 +46,8 @@ export const pizzaReducer = createSlice({
 
     }
 })
+
+export const pizzaSelector = (state) => state.pizza
 
 export const {setItemIndex, setSizeIndex, getPizzas} = pizzaReducer.actions
 

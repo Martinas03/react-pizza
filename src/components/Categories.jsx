@@ -1,8 +1,9 @@
 import React from "react";
 import {useSelector} from "react-redux";
+import {filterSelector} from "../redux/slices/filterSlice";
 
 function Categories({onClickCategory}) {
-    const {categoryId, categories} = useSelector((state) => state.filter)
+    const {categoryId, categories} = useSelector(filterSelector)
 
     return <div className="categories">
         <ul>

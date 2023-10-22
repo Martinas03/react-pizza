@@ -2,7 +2,7 @@ import React, {useCallback, useState} from 'react';
 import s from './Search.module.scss'
 import searchIcon from './../../assets/images/search.svg'
 import debounce from "lodash.debounce";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setSearchValue} from "../../redux/slices/filterSlice";
 
 
