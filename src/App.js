@@ -6,6 +6,7 @@ import Home from "./components/pages/Home";
 import NotFound from "./components/pages/NotFound";
 import Cart from "./components/pages/Cart";
 import PizzaInfo from "./components/PizzaInfo";
+import Layout from "./components/Layout";
 
 export const AppContext = createContext()
 
@@ -13,17 +14,14 @@ function App() {
 
     return (
         <div className="App">
-            <div className="wrapper">
-                <Header/>
-                <div className="content">
-                    <Routes>
-                        <Route path={'/react-pizza'} element={<Home/>}/>
-                        <Route path={'/cart'} element={<Cart/>}/>
-                        <Route path={'react-pizza/pizza/:id'} element={<PizzaInfo/>}/>
-                        <Route path={'*'} element={<NotFound/>}/>
-                    </Routes>
-                </div>
-            </div>
+            <Routes>
+                <Route path={'/react-pizza'} element={<Layout/>}>
+                    <Route path={''} element={<Home/>}/>
+                    <Route path={'cart'} element={<Cart/>}/>
+                    <Route path={'pizza/:id'} element={<PizzaInfo/>}/>
+                    <Route path={'*'} element={<NotFound/>}/>
+                </Route>
+            </Routes>
         </div>
     );
 }
