@@ -8,7 +8,7 @@ import Pagination from "../pagination/Pagination";
 import {useDispatch, useSelector} from "react-redux";
 import {filterSelector, setCategoryId, setCurrentPage, setFilterParams} from "../../redux/slices/filterSlice";
 import qs from 'qs'
-import {useNavigate} from 'react-router-dom'
+import {Link, useNavigate, useParams} from 'react-router-dom'
 import {addItem} from "../../redux/slices/cartSlice";
 import {fetchPizzas, pizzaSelector} from "../../redux/slices/pizzaSlice";
 
@@ -19,6 +19,8 @@ const Home = () => {
     const {pizzas, pizzaStatus} = useSelector(pizzaSelector)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
+    const urlParams = useParams()
 
     const getPizzas = () => {
         const category = categoryId > 0 ? `category=${categoryId.toString()}` : ''
@@ -51,6 +53,7 @@ const Home = () => {
     }, [categoryId, sortValue, searchValue, currentPage])
 
     useEffect(() => {
+        console.log(urlParams)
         if (isMounted.current) {
             const queryString = qs.stringify({
                 sort: sortValue.property,
@@ -81,6 +84,7 @@ const Home = () => {
     return (
         <div className="container">
             <div className="content__top">
+
                 <Categories onClickCategory={onClickCategory}/>
                 <Sort/>
             </div>

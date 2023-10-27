@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {addItem, cartItemsSelector} from "../redux/slices/cartSlice";
 import {useDispatch, useSelector} from "react-redux";
+import {Link} from "react-router-dom";
 
 
 function PizzaBlock({title, image, price, type, size, obj, onAddItem, id}) {
@@ -37,15 +38,14 @@ function PizzaBlock({title, image, price, type, size, obj, onAddItem, id}) {
         console.log(item.size)
     }
 
-
     return <div className="pizza-block-wrapper">
         <div className="pizza-block">
             <>
-                <img
+                <Link to={'pizza/' + id}><img
                     className="pizza-block__image"
                     src={image}
                     alt="Pizza"
-                />
+                /></Link>
                 <h4 className="pizza-block__title">{title}</h4>
                 <div className="pizza-block__selector">
                     <ul>

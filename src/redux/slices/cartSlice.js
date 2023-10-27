@@ -51,6 +51,3 @@ export const cartItemsSelector = (id) => (state) => state.cart.items.find(obj =>
 export const {addItem, removeItem, clearItem, minusItem} = cartReducer.actions
 
 export default cartReducer.reducer
-
-export class setTotalPrice {
-}

@@ -23,6 +23,7 @@ function Header() {
                 </div>
             </Link>
             <Search/>
+
             <div className="header__cart">
                 <Link
                     to="cart"

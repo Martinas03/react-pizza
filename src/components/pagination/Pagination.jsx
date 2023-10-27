@@ -8,7 +8,6 @@ const Pagination = ({onChangePage}) => {
     const {pizzasTotalCount, pageCount} = useSelector(paginationSlice)
     const {currentPage} = useSelector(filterSelector)
 
-
     const totalPage = Math.ceil(pizzasTotalCount / pageCount)
 
     const pagesArray = Array(totalPage).fill(1).map((i, index) => index + 1)
