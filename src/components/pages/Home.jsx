@@ -3,6 +3,8 @@ import Categories from "../Categories";
 import Sort from "../Sort";
 import PizzaBlockSkeleton from "../Skeletons/PizzaBlockSkeleton";
 import PizzaBlock from "../PizzaBlock";
+import scss from './../../scss/app.scss'
+
 import './../../App.css';
 import Pagination from "../pagination/Pagination";
 import {useDispatch, useSelector} from "react-redux";

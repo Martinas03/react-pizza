@@ -1,10 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import axios from "axios";
+import {PizzaType} from "../types";
+
+type PizzaInfoType = {
+    imageUrl: string
+    title: string
+    price: number
+}
 
 const PizzaInfo = () => {
     const {id} = useParams()
-    const [pizza, setPizza] = useState()
+    const [pizza, setPizza] = useState<PizzaType>()
 
     useEffect(() => {
         const fetchPizza = async  () => {
@@ -17,7 +24,6 @@ const PizzaInfo = () => {
         }
 
         fetchPizza()
-
     }, [])
 
 

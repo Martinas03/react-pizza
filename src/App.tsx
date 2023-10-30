@@ -8,12 +8,10 @@ import Cart from "./components/pages/Cart";
 import PizzaInfo from "./components/PizzaInfo";
 import Layout from "./components/Layout";
 
-export const AppContext = createContext()
 
 function App() {
 
     return (
-        <div className="App">
             <Routes>
                 <Route path={'/react-pizza'} element={<Layout/>}>
                     <Route path={''} element={<Home/>}/>
@@ -22,7 +20,6 @@ function App() {
                     <Route path={'*'} element={<NotFound/>}/>
                 </Route>
             </Routes>
-        </div>
     );
 }
 
