@@ -3,8 +3,16 @@ import {addItem, cartItemsSelector} from "../redux/slices/cartSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 
+type PizzaBlockPropsType = {
+    title: string,
+    image: string,
+    price: number,
+    type: number[],
+    size: number[]
+    id: string
+}
 
-function PizzaBlock({title, image, price, type, size, obj, onAddItem, id}) {
+const PizzaBlock: React.FC<PizzaBlockPropsType> = ({title, image, price, type, size, id}) => {
 
     const dispatch = useDispatch()
 
@@ -12,15 +20,15 @@ function PizzaBlock({title, image, price, type, size, obj, onAddItem, id}) {
     const cartItems = useSelector(cartItemsSelector(id))
     const addedCount = cartItems ? cartItems.count : 0
 
-    const [sizeIndex, setSizeIndex] = useState(0)
-    const [typeIndex, setTypeIndex] = useState(0)
+    const [sizeIndex, setSizeIndex] = useState<number>(0)
+    const [typeIndex, setTypeIndex] = useState<number>(0)
 
 
-    const onClickSizeActive = (index) => {
+    const onClickSizeActive = (index: number) => {
         setSizeIndex(index)
     }
 
-    const onClickTypeActive = (index) => {
+    const onClickTypeActive = (index: number) => {
         setTypeIndex(index)
     }
 
@@ -35,7 +43,6 @@ function PizzaBlock({title, image, price, type, size, obj, onAddItem, id}) {
         }
         dispatch(addItem(item))
 
-        console.log(item.size)
     }
 
     return <div className="pizza-block-wrapper">

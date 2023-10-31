@@ -9,16 +9,16 @@ import {setSearchValue} from "../../redux/slices/filterSlice";
 const Search = () => {
     const dispatch = useDispatch()
 
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState<string>('')
 
     const testDebounce = useCallback(
-        debounce((str) => {
+        debounce((str: string) => {
             dispatch(setSearchValue(str))
         }, 1500),
         [])
 
 
-    const onclick = (event) => {
+    const onclick = (event: any) => {
         setValue(event.currentTarget.value)
         testDebounce(event.currentTarget.value)
     }

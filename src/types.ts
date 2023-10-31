@@ -1,4 +1,5 @@
 export type PizzaType = {
+    count?: number
     id: string;
     imageUrl: string;
     title: string;
@@ -8,3 +9,17 @@ export type PizzaType = {
     category: number;
     rating: number;
 }
+
+export type SortValueType = {
+    property: string
+    title: string
+}
+
+export type sortListType = SortValueType[]
+
+export type CategoryType = {
+    id: number
+    title: string
+}
+
+export type CategoriesType = CategoryType[]

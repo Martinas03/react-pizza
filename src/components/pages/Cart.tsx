@@ -4,12 +4,13 @@ import {useDispatch, useSelector} from "react-redux";
 import CartPizza from "./CartPizza";
 import {clearItem} from "../../redux/slices/cartSlice";
 import CartEmpty from "./CartEmpty";
+import {PizzaType} from "../../types";
 
 
 const Cart = () => {
-    const items = useSelector((state) => state.cart.items)
-    const totalItems = useSelector((state) => state.cart.items).reduce((sum, item)=> sum + item.count, 0)
-    const totalPrice = useSelector((state) => state.cart.totalPrice)
+    const items = useSelector((state: any) => state.cart.items)
+    const totalItems = useSelector((state: any) => state.cart.items).reduce((sum: number, item: any)=> sum + item.count, 0)
+    const totalPrice = useSelector((state: any) => state.cart.totalPrice)
 
     const dispatch = useDispatch()
 
@@ -64,7 +65,7 @@ const Cart = () => {
                         <span onClick={ClearCart}>Очистить корзину</span>
                     </div>
                 </div>
-                {items && items.map(obj => {
+                {items && items.map((obj: PizzaType) => {
                     return (<CartPizza
                         key={obj.id}
                         image={obj.imageUrl}
@@ -73,8 +74,7 @@ const Cart = () => {
                         size={obj.sizes}
                         price={obj.price}
                         id={obj.id}
-                        countOf={obj.count}
-                        obj={obj}
+                        count={obj.count}
                     />)
                 })}
                 <Link to={'/react-pizza'} className="cart__bottom">

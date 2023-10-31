@@ -4,7 +4,11 @@ import {useSelector} from "react-redux";
 import {paginationSlice} from "../../redux/slices/paginationSlice";
 import {filterSelector} from "../../redux/slices/filterSlice";
 
-const Pagination = ({onChangePage}) => {
+type PaginationPropsType = {
+    onChangePage: (page: number) => void
+}
+
+const Pagination: React.FC<PaginationPropsType> = ({onChangePage}) => {
     const {pizzasTotalCount, pageCount} = useSelector(paginationSlice)
     const {currentPage} = useSelector(filterSelector)
 

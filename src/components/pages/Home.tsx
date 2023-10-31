@@ -13,8 +13,9 @@ import qs from 'qs'
 import {Link, useNavigate, useParams} from 'react-router-dom'
 import {addItem} from "../../redux/slices/cartSlice";
 import {fetchPizzas, pizzaSelector} from "../../redux/slices/pizzaSlice";
+import {PizzaType, SortValueType} from "../../types";
 
-const Home = () => {
+const Home: React.FC = () => {
     const isMounted = useRef(false)
     const isSearch = useRef(false)
     const {categoryId, searchValue, sortValue, currentPage, sortList} = useSelector(filterSelector)
@@ -32,7 +33,10 @@ const Home = () => {
         const limit = `limit=4`
         const page = `page=${currentPage}`
 
-        dispatch(fetchPizzas({category, search, sortBy, order, limit, page}))
+        dispatch(
+            //@ts-ignore
+            fetchPizzas(
+            {category, search, sortBy, order, limit, page}))
         window.scrollTo(0, 0)
     }
 
@@ -40,7 +44,7 @@ const Home = () => {
     useEffect(() => {
         if (window.location.search) {
             const params = qs.parse(window.location.search.substring(1))
-            const sort = sortList.find(obj => obj.property === params.sort)
+            const sort = sortList.find((obj: SortValueType) => obj.property === params.sort)
             dispatch(setFilterParams({...params, sort}))
             isSearch.current = true
         }
@@ -69,19 +73,15 @@ const Home = () => {
 
     }, [categoryId, sortValue, searchValue, currentPage])
 
-    const onClickCategory = (index) => {
+    const onClickCategory = (index: number) => {
         // setCategoryIndex(index)
         dispatch(setCategoryId(index))
     }
 
-    const onChangePage = (page) => {
+    const onChangePage = (page: number) => {
         dispatch(setCurrentPage(page))
     }
 
-    const onAddItem = (count, setCount, item) => {
-        dispatch(addItem(item))
-        setCount(count + 1)
-    }
 
     return (
         <div className="container">
@@ -94,17 +94,15 @@ const Home = () => {
             <div className="content__items">
                 {pizzaStatus === 'loading' ? [...new Array(3)].map((item, i) => {
                     return <PizzaBlockSkeleton key={i}/>
-                }) : pizzaStatus === 'success' ? pizzas.map(obj => {
+                }) : pizzaStatus === 'success' ? pizzas.map((obj: PizzaType) => {
                     return <PizzaBlock
                         key={obj.id}
-                        obj={obj}
                         title={obj.title}
                         image={obj.imageUrl}
                         price={obj.price}
                         type={obj.types}
                         size={obj.sizes}
                         id={obj.id}
-                        onAddItem={onAddItem}
                     />
 
                 }) : <h2>Пиццы не найдены</h2>}

@@ -32,6 +32,8 @@ export const sortReducer = createSlice({
     },
 })
 
+
+
 export const {setFilterSortParams} = sortReducer.actions
 
 export default sortReducer.reducer

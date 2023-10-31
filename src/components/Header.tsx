@@ -1,15 +1,19 @@
-import React, {useContext, useEffect} from "react";
+import React from "react";
 import pizzaLogo from './../assets/images/pizza.svg'
 import {Link} from "react-router-dom";
 import Search from "./search/Search";
-import {AppContext} from "../App";
 import {useSelector} from "react-redux";
 import {cartSelector} from "../redux/slices/cartSlice";
+import {PizzaType} from "../types";
 
 function Header() {
     const {totalPrice, items} = useSelector(cartSelector)
 
-    const itemsCount = items.reduce((sum, item) => sum + item.count, 0)
+    const itemsCount = items.reduce((sum: number, item: PizzaType) => {
+        if(item.count) return  sum + item.count
+    }, 0)
+
+    console.log(items)
 
     return <div className="header">
         <div className="container">

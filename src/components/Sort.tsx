@@ -1,21 +1,27 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {setSortValue} from "../redux/slices/filterSlice";
+import {SortValueType} from "../types";
+
+
 
 function Sort() {
 
-    const [isOpenPopup, setIsOpenPopup] = useState(false)
-    const sortValue = useSelector(state => state.filter.sortValue)
-    const sortList = useSelector((state) => state.filter.sortList)
-    const sortRef = useRef();
+    const [isOpenPopup, setIsOpenPopup] = useState<boolean>(false)
+    const sortValue: any = useSelector<any>(state => state.filter.sortValue)
+    const sortList: any = useSelector<any>((state) => state.filter.sortList)
+    const sortRef = useRef<HTMLDivElement>(null);
     const dispatch = useDispatch()
 
     useEffect(() => {
 
-        const outSideHandler = (event) => {
-            if(!sortRef.current.contains(event.target)) {
-                setIsOpenPopup(false)
+        const outSideHandler = (event: any) => {
+            if(sortRef.current) {
+                if(!sortRef.current.contains(event.target)) {
+                    setIsOpenPopup(false)
+                }
             }
+
         }
         document.body.addEventListener('click', outSideHandler)
 
@@ -27,7 +33,7 @@ function Sort() {
 
     // console.log(sortRef)
 
-    const onClickActive = (index) => {
+    const onClickActive = (index: any) => {
         dispatch(setSortValue(index))
         setIsOpenPopup(false)
     }
@@ -58,7 +64,7 @@ function Sort() {
         {isOpenPopup &&
         <div className="sort__popup">
             <ul>
-                {sortList.map((obj, i) => {
+                {sortList.map((obj: SortValueType, i: number) => {
                     return <li key={i}
                                onClick={() => onClickActive(obj)}
                                className={sortValue.title === obj.title ? "active" : ''}>

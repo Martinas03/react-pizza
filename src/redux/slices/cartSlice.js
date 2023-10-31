@@ -39,7 +39,7 @@ export const cartReducer = createSlice({
             state.totalPrice = 0
         },
 
-        clearItem: (state, action) => {
+        clearItem: (state) => {
             state.items = []
         },
     },

@@ -3,8 +3,18 @@ import {addItem, cartSelector, minusItem, removeItem} from "../../redux/slices/c
 import {useDispatch} from "react-redux";
 import {useSelector} from "react-redux";
 
+type CartPizzaPopsType = {
+    image: string
+    title: string
+    type: number[]
+    price: number
+    id: string
+    count: any
+    size: number[]
+}
 
-const CartPizza = ({image, title, type, price, id, countOf, size}) => {
+
+const CartPizza: React.FC<CartPizzaPopsType> = ({image, title, type, price, id, count, size}) => {
     const {items} = useSelector(cartSelector)
     const dispatch = useDispatch()
 
@@ -55,7 +65,7 @@ const CartPizza = ({image, title, type, price, id, countOf, size}) => {
                         </svg>
 
                     </div>
-                    <b>{countOf}</b>
+                    <b>{count}</b>
                     <div onClick={onPlusPrice} className="button button--outline button--circle cart__item-count-plus">
                         <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                              xmlns="http://www.w3.org/2000/svg">
@@ -70,7 +80,7 @@ const CartPizza = ({image, title, type, price, id, countOf, size}) => {
                     </div>
                 </div>
                 <div className="cart__item-price">
-                    <b>{price * countOf}</b>
+                    <b>{price * count}</b>
                 </div>
                 <div onClick={onRemoveItem} className="cart__item-remove">
                     <div className="button button--outline button--circle">
