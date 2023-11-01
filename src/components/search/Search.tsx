@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {ChangeEvent, useCallback, useState} from 'react';
 import s from './Search.module.scss'
 import searchIcon from './../../assets/images/search.svg'
 import debounce from "lodash.debounce";
@@ -18,7 +18,7 @@ const Search = () => {
         [])
 
 
-    const onclick = (event: any) => {
+    const onclick = (event: ChangeEvent<HTMLInputElement>) => {
         setValue(event.currentTarget.value)
         testDebounce(event.currentTarget.value)
     }

@@ -4,7 +4,6 @@ import Sort from "../Sort";
 import PizzaBlockSkeleton from "../Skeletons/PizzaBlockSkeleton";
 import PizzaBlock from "../PizzaBlock";
 import scss from './../../scss/app.scss'
-
 import './../../App.css';
 import Pagination from "../pagination/Pagination";
 import {useDispatch, useSelector} from "react-redux";
@@ -34,7 +33,7 @@ const Home: React.FC = () => {
         const page = `page=${currentPage}`
 
         dispatch(
-            //@ts-ignore
+            // @ts-ignore
             fetchPizzas(
             {category, search, sortBy, order, limit, page}))
         window.scrollTo(0, 0)
@@ -84,31 +83,36 @@ const Home: React.FC = () => {
 
 
     return (
-        <div className="container">
-            <div className="content__top">
+        <div className={scss}>
+            <div className="container">
+                <div className="content__top">
 
-                <Categories onClickCategory={onClickCategory}/>
-                <Sort/>
-            </div>
-            <h2 className="content__title">Все пиццы</h2>
-            <div className="content__items">
-                {pizzaStatus === 'loading' ? [...new Array(3)].map((item, i) => {
-                    return <PizzaBlockSkeleton key={i}/>
-                }) : pizzaStatus === 'success' ? pizzas.map((obj: PizzaType) => {
-                    return <PizzaBlock
-                        key={obj.id}
-                        title={obj.title}
-                        image={obj.imageUrl}
-                        price={obj.price}
-                        type={obj.types}
-                        size={obj.sizes}
-                        id={obj.id}
-                    />
+                    <Categories onClickCategory={onClickCategory}/>
+                    <Sort/>
+                </div>
+                <h2 className="content__title">Все пиццы</h2>
+                <div className="content__items">
+                    {pizzaStatus === 'loading' ? [...new Array(3)].map((item, i) => {
+                        return <PizzaBlockSkeleton key={i}/>
+                    }) : pizzaStatus === 'success' ? pizzas.map((obj: PizzaType) => {
+                        return <PizzaBlock
+                            key={obj.id}
+                            title={obj.title}
+                            image={obj.imageUrl}
+                            price={obj.price}
+                            type={obj.types}
+                            size={obj.sizes}
+                            id={obj.id}
+                        />
 
-                }) : <h2>Пиццы не найдены</h2>}
+                    }) : <h2>Пиццы не найдены</h2>}
+                </div>
+                <Pagination onChangePage={onChangePage}/>
             </div>
-            <Pagination onChangePage={onChangePage}/>
         </div>
+
+
+
     );
 };
 

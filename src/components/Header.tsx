@@ -9,11 +9,9 @@ import {PizzaType} from "../types";
 function Header() {
     const {totalPrice, items} = useSelector(cartSelector)
 
-    const itemsCount = items.reduce((sum: number, item: PizzaType) => {
+    const itemsCount = items.reduce((sum: any, item: PizzaType) => {
         if(item.count) return  sum + item.count
     }, 0)
-
-    console.log(items)
 
     return <div className="header">
         <div className="container">

@@ -1,6 +1,12 @@
 import {createSlice} from '@reduxjs/toolkit'
+import {RootState} from "../store";
 
-const initialState = {
+interface PaginationSlice {
+    pizzasTotalCount: number
+    pageCount: number
+}
+
+const initialState: PaginationSlice = {
     pizzasTotalCount: 10,
     pageCount: 4,
 }
@@ -13,7 +19,7 @@ export const paginationReducer = createSlice({
     },
 })
 
-export const paginationSlice = (state) => state.pagination
+export const paginationSlice = (state: RootState) => state.pagination
 
 export const {} = paginationReducer.actions
 

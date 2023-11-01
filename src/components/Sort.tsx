@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {ChangeEvent, useEffect, useRef, useState, MouseEvent} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {setSortValue} from "../redux/slices/filterSlice";
 import {SortValueType} from "../types";
@@ -17,16 +17,16 @@ function Sort() {
 
         const outSideHandler = (event: any) => {
             if(sortRef.current) {
-                if(!sortRef.current.contains(event.target)) {
+                if(!sortRef.current.contains(event.target as Node)) {
                     setIsOpenPopup(false)
                 }
             }
 
         }
-        document.body.addEventListener('click', outSideHandler)
+        document.body.addEventListener('click', outSideHandler as (e: Event) => void)
 
         return () => {
-            document.body.removeEventListener('click', outSideHandler)
+            document.body.removeEventListener('click', outSideHandler as (e: Event) => void)
         }
 
     }, [])

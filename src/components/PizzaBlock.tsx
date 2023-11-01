@@ -91,7 +91,7 @@ const PizzaBlock: React.FC<PizzaBlockPropsType> = ({title, image, price, type, s
                             />
                         </svg>
                         <span>Добавить</span>
-                        {addedCount > 0 &&<i>
+                        {addedCount && addedCount > 0 &&<i>
                             {addedCount}
                         </i>}
                     </button>
