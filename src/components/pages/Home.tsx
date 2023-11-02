@@ -11,15 +11,16 @@ import {filterSelector, setCategoryId, setCurrentPage, setFilterParams} from "..
 import qs from 'qs'
 import {Link, useNavigate, useParams} from 'react-router-dom'
 import {addItem} from "../../redux/slices/cartSlice";
-import {fetchPizzas, pizzaSelector} from "../../redux/slices/pizzaSlice";
+import {fetchPizzas, pizzaSelector, Status} from "../../redux/slices/pizzaSlice";
 import {PizzaType, SortValueType} from "../../types";
+import {useAppDispatch} from "../../redux/store";
 
 const Home: React.FC = () => {
     const isMounted = useRef(false)
     const isSearch = useRef(false)
     const {categoryId, searchValue, sortValue, currentPage, sortList} = useSelector(filterSelector)
     const {pizzas, pizzaStatus} = useSelector(pizzaSelector)
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
     const urlParams = useParams()
@@ -33,7 +34,6 @@ const Home: React.FC = () => {
         const page = `page=${currentPage}`
 
         dispatch(
-            // @ts-ignore
             fetchPizzas(
             {category, search, sortBy, order, limit, page}))
         window.scrollTo(0, 0)
@@ -92,9 +92,9 @@ const Home: React.FC = () => {
                 </div>
                 <h2 className="content__title">Все пиццы</h2>
                 <div className="content__items">
-                    {pizzaStatus === 'loading' ? [...new Array(3)].map((item, i) => {
+                    {pizzaStatus === Status.LOADING ? [...new Array(3)].map((item, i) => {
                         return <PizzaBlockSkeleton key={i}/>
-                    }) : pizzaStatus === 'success' ? pizzas.map((obj: PizzaType) => {
+                    }) : pizzaStatus === Status.SUCCESS ? pizzas.map((obj: PizzaType) => {
                         return <PizzaBlock
                             key={obj.id}
                             title={obj.title}

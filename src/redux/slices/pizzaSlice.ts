@@ -10,6 +10,12 @@ export const fetchPizzas = createAsyncThunk<PizzaType[], Record<string, string>>
     }
 )
 
+export enum Status {
+    LOADING = 'loading',
+    SUCCESS = 'success',
+    ERROR = 'error'
+}
+
 interface PizzaFilter {
     pizzas: PizzaType[],
     itemIndex: number,
@@ -21,7 +27,7 @@ const initialState: PizzaFilter = {
     pizzas: [],
     itemIndex: 0,
     sizeIndex: 0,
-    pizzaStatus: 'loading'
+    pizzaStatus: Status.LOADING
 }
 
 export const pizzaReducer = createSlice({
@@ -44,15 +50,15 @@ export const pizzaReducer = createSlice({
         builder
             .addCase(fetchPizzas.pending, (state) => {
                 state.pizzas = []
-                state.pizzaStatus = 'loading'
+                state.pizzaStatus = Status.LOADING
             })
             .addCase(fetchPizzas.fulfilled, (state, action) => {
                 state.pizzas = action.payload
-                state.pizzaStatus = 'success'
+                state.pizzaStatus = Status.SUCCESS
             })
             .addCase(fetchPizzas.rejected, state => {
                 state.pizzas = []
-                state.pizzaStatus = 'error'
+                state.pizzaStatus = Status.ERROR
             })
     }
 })

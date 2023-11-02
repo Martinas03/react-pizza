@@ -12,12 +12,12 @@ export type PizzaType = {
 
 export type PizzaCartType = {
     id: string
-    title?: string
-    imageUrl?: string
-    price?: number
-    types?: string,
-    sizes?: number
-    count?: number
+    title: string
+    imageUrl: string
+    price: number
+    types: string,
+    sizes: number
+    count: number
 }
 
 export type SortValueType = {
@@ -25,7 +25,7 @@ export type SortValueType = {
     title: string
 }
 
-export type sortListType = SortValueType[]
+export type SortListType = SortValueType[]
 
 export type CategoryType = {
     id: number

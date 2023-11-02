@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from "../store";
-import {CategoriesType, sortListType, SortValueType} from "../../types";
+import {CategoriesType, SortListType, SortValueType} from "../../types";
 
 interface FilterSlice {
     categoryId: number
@@ -8,7 +8,7 @@ interface FilterSlice {
     sortValue: SortValueType
     currentPage: number
     categories: CategoriesType
-    sortList: sortListType
+    sortList: SortListType
 }
 
 const initialState: FilterSlice = {

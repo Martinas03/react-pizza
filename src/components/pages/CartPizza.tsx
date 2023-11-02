@@ -2,6 +2,7 @@ import React from 'react';
 import {addItem, cartSelector, minusItem, removeItem} from "../../redux/slices/cartSlice";
 import {useDispatch} from "react-redux";
 import {useSelector} from "react-redux";
+import {PizzaCartType} from "../../types";
 
 type CartPizzaPopsType = {
     image: string
@@ -20,7 +21,7 @@ const CartPizza: React.FC<CartPizzaPopsType> = ({image, title, type, price, id, 
 
     const onPlusPrice = () => {
         dispatch(addItem(
-            {id}
+            {id} as PizzaCartType
             )
         )
     }
