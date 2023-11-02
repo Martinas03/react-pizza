@@ -5,12 +5,14 @@ import NotFound from "./components/pages/NotFound";
 import Cart from "./components/pages/Cart";
 import PizzaInfo from "./components/PizzaInfo";
 import Layout from "./components/Layout";
+
 // import scss from './scss/app.scss'
 
 
 function App() {
 
     return (
+        <div className={'App'}>
             <Routes>
                 <Route path={'/react-pizza'} element={<Layout/>}>
                     <Route path={''} element={<Home/>}/>
@@ -19,6 +21,7 @@ function App() {
                     <Route path={'*'} element={<NotFound/>}/>
                 </Route>
             </Routes>
+        </div>
     );
 }
 

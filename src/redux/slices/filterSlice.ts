@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit'
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from "../store";
 import {CategoriesType, sortListType, SortValueType} from "../../types";
 
@@ -37,23 +37,22 @@ export const counterReducer = createSlice({
     name: 'filter',
     initialState,
     reducers: {
-        setCategoryId: (state, action) => {
+        setCategoryId: (state, action: PayloadAction<number>) => {
             state.categoryId = action.payload
         },
-        setSearchValue: (state, action) => {
+        setSearchValue: (state, action: PayloadAction<string>) => {
             state.searchValue = action.payload
         },
-        setFilterParams: (state, action) => {
+        setFilterParams: (state, action: PayloadAction<any>) => {
             state.sortValue = action.payload.sort
             state.categoryId = Number(action.payload.categoryId)
             state.searchValue = action.payload.searchValue
             state.currentPage = Number(action.payload.currentPage)
-            console.log(action.payload)
         },
-        setSortValue: (state, action) => {
+        setSortValue: (state, action: PayloadAction<SortValueType>) => {
             state.sortValue = action.payload
         },
-        setCurrentPage: (state, action) => {
+        setCurrentPage: (state, action: PayloadAction<number>) => {
             state.currentPage = action.payload
         },
     },

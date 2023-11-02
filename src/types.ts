@@ -1,5 +1,5 @@
 export type PizzaType = {
-    count?: number
+    count: number
     id: string;
     imageUrl: string;
     title: string;
@@ -8,6 +8,16 @@ export type PizzaType = {
     price: number;
     category: number;
     rating: number;
+}
+
+export type PizzaCartType = {
+    id: string
+    title?: string
+    imageUrl?: string
+    price?: number
+    types?: string,
+    sizes?: number
+    count?: number
 }
 
 export type SortValueType = {

@@ -4,12 +4,12 @@ import {Link} from "react-router-dom";
 import Search from "./search/Search";
 import {useSelector} from "react-redux";
 import {cartSelector} from "../redux/slices/cartSlice";
-import {PizzaType} from "../types";
+import {PizzaCartType, PizzaType} from "../types";
 
 function Header() {
     const {totalPrice, items} = useSelector(cartSelector)
 
-    const itemsCount = items.reduce((sum: any, item: PizzaType) => {
+    const itemsCount = items.reduce((sum: any, item: PizzaCartType) => {
         if(item.count) return  sum + item.count
     }, 0)
 
@@ -61,7 +61,7 @@ function Header() {
                             strokeLinejoin="round"
                         />
                     </svg>
-                    <span>{itemsCount}</span>
+                    <span>{itemsCount.toString()}</span>
                 </Link>
             </div>
         </div>
