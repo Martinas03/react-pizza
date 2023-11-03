@@ -26,8 +26,6 @@ const CartPizza: React.FC<CartPizzaPopsType> = ({image, title, type, price, id, 
         )
     }
 
-    console.log(items)
-
     const onMinusPrice = () => {
         // if(count > 1) {
             dispatch(minusItem(id))

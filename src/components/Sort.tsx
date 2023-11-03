@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useRef, useState, MouseEvent, memo} from "react";
+import React, { useEffect, useRef, useState, memo} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {setSortValue} from "../redux/slices/filterSlice";
 import {SortValueType} from "../types";

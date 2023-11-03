@@ -1,17 +1,27 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import pizzaLogo from './../assets/images/pizza.svg'
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import Search from "./search/Search";
 import {useSelector} from "react-redux";
 import {cartSelector} from "../redux/slices/cartSlice";
-import {PizzaCartType, PizzaType} from "../types";
+import {PizzaCartType} from "../types";
 
 function Header() {
     const {totalPrice, items} = useSelector(cartSelector)
-
+    const isMounted = useRef(false)
     const itemsCount = items.reduce((sum: any, item: PizzaCartType) => {
         if(item.count) return  sum + item.count
     }, 0)
+
+    useEffect(()=> {
+        if(isMounted.current) {
+            const json = JSON.stringify(items)
+            localStorage.setItem('cart', json)
+        }
+        isMounted.current = true
+    }, [items])
+
+    const urlParams = useParams()
 
     return <div className="header">
         <div className="container">
@@ -24,7 +34,8 @@ function Header() {
                     <p>самая вкусная пицца во вселенной</p>
                 </div>
             </Link>
-            <Search/>
+            {window.location.href !== 'http://localhost:3000/react-pizza/cart' && <Search/>}
+
 
             <div className="header__cart">
                 <Link

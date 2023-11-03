@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 import Categories from "../Categories";
 import Sort from "../Sort";
 import PizzaBlockSkeleton from "../Skeletons/PizzaBlockSkeleton";
@@ -6,15 +6,13 @@ import PizzaBlock from "../PizzaBlock";
 import scss from './../../scss/app.scss'
 import './../../App.css';
 import Pagination from "../pagination/Pagination";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {filterSelector, setCategoryId, setCurrentPage, setFilterParams} from "../../redux/slices/filterSlice";
 import qs from 'qs'
-import {Link, useNavigate, useParams} from 'react-router-dom'
-import {addItem} from "../../redux/slices/cartSlice";
+import {useNavigate, useParams} from 'react-router-dom'
 import {fetchPizzas, pizzaSelector, Status} from "../../redux/slices/pizzaSlice";
 import {PizzaType, SortValueType} from "../../types";
 import {useAppDispatch} from "../../redux/store";
-
 
 
 const Home: React.FC = () => {
@@ -111,7 +109,6 @@ const Home: React.FC = () => {
                 <Pagination onChangePage={onChangePage}/>
             </div>
         </div>
-
 
 
     );
