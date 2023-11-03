@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
 import Categories from "../Categories";
 import Sort from "../Sort";
 import PizzaBlockSkeleton from "../Skeletons/PizzaBlockSkeleton";
@@ -14,6 +14,8 @@ import {addItem} from "../../redux/slices/cartSlice";
 import {fetchPizzas, pizzaSelector, Status} from "../../redux/slices/pizzaSlice";
 import {PizzaType, SortValueType} from "../../types";
 import {useAppDispatch} from "../../redux/store";
+
+
 
 const Home: React.FC = () => {
     const isMounted = useRef(false)
@@ -35,7 +37,7 @@ const Home: React.FC = () => {
 
         dispatch(
             fetchPizzas(
-            {category, search, sortBy, order, limit, page}))
+                {category, search, sortBy, order, limit, page}))
         window.scrollTo(0, 0)
     }
 
@@ -58,7 +60,6 @@ const Home: React.FC = () => {
     }, [categoryId, sortValue, searchValue, currentPage])
 
     useEffect(() => {
-        console.log(urlParams)
         if (isMounted.current) {
             const queryString = qs.stringify({
                 sort: sortValue.property,
@@ -72,10 +73,10 @@ const Home: React.FC = () => {
 
     }, [categoryId, sortValue, searchValue, currentPage])
 
-    const onClickCategory = (index: number) => {
-        // setCategoryIndex(index)
+    const onClickCategory = useCallback((index: number) => {
         dispatch(setCategoryId(index))
-    }
+        console.log('index')
+    }, [])
 
     const onChangePage = (page: number) => {
         dispatch(setCurrentPage(page))
@@ -115,5 +116,4 @@ const Home: React.FC = () => {
 
     );
 };
-
 export default Home;

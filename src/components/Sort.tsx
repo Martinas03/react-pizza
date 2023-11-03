@@ -1,11 +1,11 @@
-import React, {ChangeEvent, useEffect, useRef, useState, MouseEvent} from "react";
+import React, {ChangeEvent, useEffect, useRef, useState, MouseEvent, memo} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {setSortValue} from "../redux/slices/filterSlice";
 import {SortValueType} from "../types";
 
 
 
-function Sort() {
+const Sort = memo(() => {
 
     const [isOpenPopup, setIsOpenPopup] = useState<boolean>(false)
     const sortValue: any = useSelector<any>(state => state.filter.sortValue)
@@ -31,7 +31,7 @@ function Sort() {
 
     }, [])
 
-    // console.log(sortRef)
+    console.log('sortRef')
 
     const onClickActive = (index: any) => {
         dispatch(setSortValue(index))
@@ -75,6 +75,6 @@ function Sort() {
 
         </div>}
     </div>;
-}
+})
 
 export default Sort

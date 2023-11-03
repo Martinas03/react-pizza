@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import {useSelector} from "react-redux";
 import {filterSelector} from "../redux/slices/filterSlice";
 import {CategoryType} from "../types";
@@ -7,9 +7,8 @@ type CategoriesPopsType = {
     onClickCategory: (index: number) => void
 }
 
-const Categories: React.FC<CategoriesPopsType> = ({onClickCategory}) => {
+const Categories: React.FC<CategoriesPopsType> = memo(({onClickCategory}) => {
     const {categoryId, categories} = useSelector(filterSelector)
-
     return <div className="categories">
         <ul>
             {categories.map((el: CategoryType, index: number) => {
@@ -17,6 +16,6 @@ const Categories: React.FC<CategoriesPopsType> = ({onClickCategory}) => {
             })}
         </ul>
     </div>;
-}
+})
 
 export default Categories
