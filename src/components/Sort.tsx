@@ -1,15 +1,16 @@
-import React, { useEffect, useRef, useState, memo} from "react";
+import React, {useEffect, useRef, useState, memo, MouseEvent, SyntheticEvent} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {setSortValue} from "../redux/slices/filterSlice";
-import {SortValueType} from "../types";
+import {SortListType, SortValueType} from "../types";
+import {RootState} from "../redux/store";
 
 
 
 const Sort = memo(() => {
 
     const [isOpenPopup, setIsOpenPopup] = useState<boolean>(false)
-    const sortValue: any = useSelector<any>(state => state.filter.sortValue)
-    const sortList: any = useSelector<any>((state) => state.filter.sortList)
+    const sortValue: SortValueType = useSelector<RootState, SortValueType>(state => state.filter.sortValue)
+    const sortList: SortListType = useSelector<RootState, SortListType>((state) => state.filter.sortList)
     const sortRef = useRef<HTMLDivElement>(null);
     const dispatch = useDispatch()
 
@@ -17,16 +18,16 @@ const Sort = memo(() => {
 
         const outSideHandler = (event: any) => {
             if(sortRef.current) {
-                if(!sortRef.current.contains(event.target as Node)) {
+                if(!sortRef.current.contains(event.target)) {
                     setIsOpenPopup(false)
                 }
             }
 
         }
-        document.body.addEventListener('click', outSideHandler as (e: Event) => void)
+        document.body.addEventListener('click', outSideHandler )
 
         return () => {
-            document.body.removeEventListener('click', outSideHandler as (e: Event) => void)
+            document.body.removeEventListener('click', outSideHandler )
         }
 
     }, [])

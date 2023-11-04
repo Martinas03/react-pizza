@@ -30,7 +30,7 @@ export const cartReducer = createSlice({
                 if(findItem.count) findItem.count++
             }
 
-            state.totalPrice = calculateTotalPrice(state)
+            state.totalPrice = calculateTotalPrice(state.items)
         },
 
         minusItem: (state, action: PayloadAction<string> ) => {
