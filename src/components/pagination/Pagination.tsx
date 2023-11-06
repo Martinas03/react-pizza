@@ -8,7 +8,7 @@ type PaginationPropsType = {
     onChangePage: (page: number) => void
 }
 
-const Pagination: React.FC<PaginationPropsType> = ({onChangePage}) => {
+export const Pagination: React.FC<PaginationPropsType> = ({onChangePage}) => {
     const {pizzasTotalCount, pageCount} = useSelector(paginationSlice)
     const {currentPage} = useSelector(filterSelector)
 
@@ -39,4 +39,3 @@ const Pagination: React.FC<PaginationPropsType> = ({onChangePage}) => {
     );
 };
 
-export default Pagination;

@@ -1,12 +1,12 @@
 import React, {useEffect, useRef} from "react";
 import pizzaLogo from './../assets/images/pizza.svg'
 import {Link, useParams} from "react-router-dom";
-import Search from "./search/Search";
+import {Search} from "./search/Search";
 import {useSelector} from "react-redux";
 import {cartSelector} from "../redux/slices/cartSlice";
 import {PizzaCartType} from "../types";
 
-function Header() {
+export const Header =() => {
     const {totalPrice, items} = useSelector(cartSelector)
     const isMounted = useRef(false)
     const itemsCount = items.reduce((sum: any, item: PizzaCartType) => {
@@ -79,4 +79,3 @@ function Header() {
     </div>;
 }
 
-export default Header

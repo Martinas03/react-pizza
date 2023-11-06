@@ -6,7 +6,7 @@ import {RootState} from "../redux/store";
 
 
 
-const Sort = memo(() => {
+export const Sort = memo(() => {
 
     const [isOpenPopup, setIsOpenPopup] = useState<boolean>(false)
     const sortValue: SortValueType = useSelector<RootState, SortValueType>(state => state.filter.sortValue)
@@ -84,4 +84,3 @@ const Sort = memo(() => {
     </div>;
 })
 
-export default Sort

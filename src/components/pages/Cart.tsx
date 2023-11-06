@@ -1,13 +1,12 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import CartPizza from "./CartPizza";
-import {clearItem} from "../../redux/slices/cartSlice";
-import CartEmpty from "./CartEmpty";
+import {CartEmpty, CartPizza} from "./../../imports/imports";
 import {PizzaType} from "../../types";
+import {clearItem} from "../../redux/slices/cartSlice";
 
 
-const Cart = () => {
+export const Cart = () => {
     const items = useSelector((state: any) => state.cart.items)
     const totalItems = useSelector((state: any) => state.cart.items).reduce((sum: number, item: any)=> sum + item.count, 0)
     const totalPrice = useSelector((state: any) => state.cart.totalPrice)
@@ -102,4 +101,3 @@ const Cart = () => {
     );
 };
 
-export default Cart;

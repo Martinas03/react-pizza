@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 
 
 
-const CartEmpty = () => {
+export const CartEmpty = () => {
 
     return (
         <div className="cart__item">
@@ -26,4 +26,3 @@ const CartEmpty = () => {
     )
 };
 
-export default CartEmpty;

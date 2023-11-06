@@ -9,7 +9,7 @@ type PizzaInfoType = {
     price: number
 }
 
-const PizzaInfo = () => {
+export const PizzaInfo = () => {
     const {id} = useParams()
     const [pizza, setPizza] = useState<PizzaType>()
 
@@ -44,4 +44,3 @@ const PizzaInfo = () => {
     }
 };
 
-export default PizzaInfo;

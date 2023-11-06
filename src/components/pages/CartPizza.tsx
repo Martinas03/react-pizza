@@ -15,7 +15,7 @@ type CartPizzaPopsType = {
 }
 
 
-const CartPizza: React.FC<CartPizzaPopsType> = ({image, title, type, price, id, count, size}) => {
+export const CartPizza: React.FC<CartPizzaPopsType> = ({image, title, type, price, id, count, size}) => {
     const {items} = useSelector(cartSelector)
     const dispatch = useDispatch()
 
@@ -102,4 +102,3 @@ const CartPizza: React.FC<CartPizzaPopsType> = ({image, title, type, price, id, 
     )
 };
 
-export default CartPizza;

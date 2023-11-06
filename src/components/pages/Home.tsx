@@ -1,11 +1,5 @@
 import React, {useCallback, useEffect, useRef} from 'react';
-import Categories from "../Categories";
-import Sort from "../Sort";
-import PizzaBlockSkeleton from "../Skeletons/PizzaBlockSkeleton";
-import PizzaBlock from "../PizzaBlock";
-import scss from './../../scss/app.scss'
-import './../../App.css';
-import Pagination from "../pagination/Pagination";
+import {Categories, Sort, PizzaBlockSkeleton, PizzaBlock, Pagination} from './../../imports/imports'
 import {useSelector} from "react-redux";
 import {filterSelector, setCategoryId, setCurrentPage, setFilterParams} from "../../redux/slices/filterSlice";
 import qs from 'qs'
@@ -13,7 +7,8 @@ import {useNavigate, useParams} from 'react-router-dom'
 import {fetchPizzas, pizzaSelector, Status} from "../../redux/slices/pizzaSlice";
 import {PizzaType, SortValueType} from "../../types";
 import {useAppDispatch} from "../../redux/store";
-
+import './../../App.css';
+import scss from './../../scss/app.scss'
 
 const  Home: React.FC = () => {
     const isMounted = useRef(false)

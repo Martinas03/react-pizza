@@ -3,13 +3,12 @@ import {Routes, Route} from 'react-router-dom'
 import Home from "./components/pages/Home";
 import Layout from "./components/Layout";
 
-// import scss from './scss/app.scss'
-
-
-const Cart = React.lazy(() => import(/* webpackChunkName: "Cart" */ "./components/pages/Cart"));
-const PizzaInfo = React.lazy(() => import(/* webpackChunkName: "PizzaInfo" */ "./components/PizzaInfo"));
-const NotFound = React.lazy(() => import(/* webpackChunkName: "NotFound" */ "./components/pages/NotFound"));
-
+const Cart = React.lazy(() => import(/* webpackChunkName: "Cart" */ "./components/pages/Cart")
+    .then(module => ({ default: module.Cart })));
+const PizzaInfo = React.lazy(() => import(/* webpackChunkName: "PizzaInfo" */ "./components/PizzaInfo")
+    .then(module => ({ default: module.PizzaInfo })));
+const NotFound = React.lazy(() => import("./components/pages/NotFound")
+    .then(module => ({ default: module.NotFound })));
 
 function App() {
 

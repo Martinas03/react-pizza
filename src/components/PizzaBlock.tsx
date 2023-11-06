@@ -13,7 +13,7 @@ type PizzaBlockPropsType = {
     id: string
 }
 
-const PizzaBlock: React.FC<PizzaBlockPropsType> = ({title, image, price, type, size, id}) => {
+export const PizzaBlock: React.FC<PizzaBlockPropsType> = ({title, image, price, type, size, id}) => {
 
     const dispatch = useDispatch()
 
@@ -104,4 +104,3 @@ const PizzaBlock: React.FC<PizzaBlockPropsType> = ({title, image, price, type, s
     </div>
 }
 
-export default PizzaBlock

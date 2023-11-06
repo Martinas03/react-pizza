@@ -7,7 +7,7 @@ type CategoriesPopsType = {
     onClickCategory: (index: number) => void
 }
 
-const Categories: React.FC<CategoriesPopsType> = memo(({onClickCategory}) => {
+export const Categories: React.FC<CategoriesPopsType> = memo(({onClickCategory}) => {
     const {categoryId, categories} = useSelector(filterSelector)
     return <div className="categories">
         <ul>
@@ -18,4 +18,3 @@ const Categories: React.FC<CategoriesPopsType> = memo(({onClickCategory}) => {
     </div>;
 })
 
-export default Categories
