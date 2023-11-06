@@ -15,11 +15,17 @@ const Sort = memo(() => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-
         const outSideHandler = (event: any) => {
-            if(sortRef.current) {
-                if(!sortRef.current.contains(event.target)) {
-                    setIsOpenPopup(false)
+            // const _event = event as MouseEvent & Node[]
+
+            // if(sortRef.current) {
+            //     if(!sortRef.current.contains(target)) {
+            //         setIsOpenPopup(false)
+            //     }
+            // }
+            if (sortRef.current && event.target instanceof Node) {
+                if (!sortRef.current.contains(event.target)) {
+                    setIsOpenPopup(false);
                 }
             }
 

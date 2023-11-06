@@ -15,7 +15,7 @@ import {PizzaType, SortValueType} from "../../types";
 import {useAppDispatch} from "../../redux/store";
 
 
-const Home: React.FC = () => {
+const  Home: React.FC = () => {
     const isMounted = useRef(false)
     const isSearch = useRef(false)
     const {categoryId, searchValue, sortValue, currentPage, sortList} = useSelector(filterSelector)
